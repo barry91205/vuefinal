@@ -1,0 +1,180 @@
+.container {
+  max-width: 1000px;
+}
+
+img {
+  background-size: cover;
+  background-position: center;
+  position: center center;
+  object-fit: cover
+}
+
+a {
+  text-decoration: none;
+}
+
+.btn-active:active {
+  background-color: #535F43; /* 设置按钮点击后的背景颜色 */
+  border-color: #ffffff; /* 设置按钮点击后的边框颜色 */
+}
+
+.noto-serif tc-regular {
+  font-family: "Noto Serif TC", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+
+/* 思源黑體 */
+.noto-serif tc-regular {
+  font-family: "Noto Sans TC", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+p,h1 {
+  font-family: "Noto Sans TC", sans-serif;
+}
+
+h2,h5 {
+  /* font-family:Noto Serif TC; */
+  font-family: "Noto Serif TC", Serif;
+  letter-spacing: 5px;
+}
+
+.banner {
+  background-size: cover;
+  background-position: center;
+  height: 500px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: center center;
+}
+
+.btn-outline-info :hover {
+  color: #fff;
+}
+
+.vertical-text {
+  writing-mode: vertical-lr; /* 垂直排列，从右向左 */
+  text-orientation: mixed; /*使得文字保持正立 */
+  margin: 0;
+  /* width: 1em; 文字容器宽度 */
+}
+
+.footer img {
+  height: 180px;
+  width: 180px;
+}
+
+/* 關於喵星球 */
+
+.transparent-box {
+  background-color: rgba(100, 77, 77, 0.491);
+  padding: 20px;
+  border-radius: 10px;
+  border: 0.5px solid white;
+}
+
+.aboutbanner {
+  background-size: cover;
+  background-position: center;
+  height: 400px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: center center;
+}
+
+.icons {
+  display: flex;
+  justify-content: space-evenly;
+} 
+
+.icon-box {
+  width: 100px;
+}
+
+.icon-box img {
+  margin-bottom: 10px;
+}
+
+.accordion-item {
+  background-color: #7D6E4D;
+}
+
+.accordion-button {
+  background-color: #535F43;
+  
+}
+
+.accordion-body {
+  color:#fff;
+}
+
+.aboutbanner h1 {
+  letter-spacing: 5px; /* 调整字距 */
+}
+
+.opacity:hover {
+  opacity: 0.6; /* 当鼠标悬停在按钮上时，设置按钮的透明度 */
+  transition: opacity 0.8s ease, background 0.3s ease; 
+  background: linear-gradient(360deg, #7D6E4D, #fcfcfc); /* 添加渐变背景 */
+  color: #fff;
+}
+
+.step {
+  border:#fff solid 1px;
+  width: 100px;
+  padding: 10px;
+}
+
+.state {
+  background: linear-gradient(360deg, #535F43, #fef5e386); /* 添加渐变背景 */
+}
+
+.cart {
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.productNumber {
+  padding: 4px 10px;
+  border: 1px solid #b2b2b2;
+  text-align: center;
+  /* width: 100px; */
+}
+
+.marker {
+  padding-left: 2px;
+    font-size: 20px;
+    color: #ff2200;
+}
+
+.full-screen-bg {
+  background-image: url('/images/roomforest.jpg'); /* 设置背景图片的URL */
+  /* height: 919px; */
+  min-height: 100vh; /* 设置最小高度为视窗的高度 */
+  background-position: center;
+  background-size: cover;
+  overflow: hidden;
+  display: flex;
+  align-items: center; 
+  justify-content: center; 
+}
+
+.middle {
+  display: flex;
+  align-items: center; /* 垂直居中 */
+  justify-content: center; /* 水平居中 */
+}
+
+.bg {
+  background-size: cover;
+  background-position: center;
+}

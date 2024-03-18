@@ -1,0 +1,91 @@
+import { createRouter, createWebHashHistory } from 'vue-router'
+
+const routes = [
+  {
+    path: '/',
+    component: () => import('@/views/FrontView.vue'),
+    children: [
+      {
+        path: '/home',
+        name: 'home',
+        component: () => import('@/views/FrontView/HomeView.vue')
+      },
+      {
+        path: '/about',
+        name: 'About',
+        component: () => import('@/views/FrontView/AboutView.vue')
+      },
+      {
+        path: '/products',
+        name: 'Products',
+        component: () => import('@/views/FrontView/ProductsView.vue')
+      },
+      {
+        path: 'product/:id',
+        name: 'product',
+        component: () => import('@/views/FrontView/ProductView.vue')
+      },
+      {
+        path: '/q&a',
+        component: () => import('@/views/FrontView/Q&AView.vue')
+      },
+      {
+        path: '/checkout',
+        component: () => import('@/views/FrontView/CheckoutView.vue')
+      },
+      {
+        path: 'paycheck/:id',
+        component: () => import('@/views/FrontView/PayCheckView.vue')
+      }
+    ]
+  },
+  {
+    path: '/login',
+    component: () => import('@/views/LoginView.vue')
+  },
+  {
+    path: '/admin',
+    name: 'Admin',
+    component: () => import('@/views/Admin/AdminView.vue'),
+    children: [
+      {
+        path: 'home',
+        name: '後臺首頁',
+        component: () => import('@/views/Admin/AdminHomeView.vue')
+      },
+      {
+        path: 'products',
+        name: '後台產品列表',
+        component: () => import('@/views/Admin/product/AdminProductsView.vue')
+      },
+      {
+        path: 'addproduct',
+        name: '後臺新增商品',
+        component: () => import('@/views/Admin/product/AdminAddProductView.vue')
+      },
+      {
+        path: 'product/edit/:id',
+        name: '後臺編輯商品',
+        component: () => import('@/views/Admin/product/AdminEditProductView.vue')
+      },
+      {
+        path: 'orders',
+        name: '後臺訂單列表',
+        component: () => import('@/views/Admin/order/AdminOrdersView.vue')
+      },
+      {
+        path: 'coupon',
+        name: '後臺優惠卷列表',
+        component: () => import('@/views/Admin/coupon/AdminCouponsView.vue')
+      }
+    ]
+  }
+]
+
+const router = createRouter({
+  history: createWebHashHistory(),
+  linkActiveClass: 'active',
+  routes
+})
+
+export default router
