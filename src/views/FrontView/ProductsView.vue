@@ -1,80 +1,80 @@
 <template>
-    <!-- banner -->
-    <div class="aboutbanner mt-5" style="background-image: url('images/roombanner.jpg'); height: 200px;">
-        <h1 class="text-white">貓咪旅館。</h1>
-    </div>
-    <div class="bg-primary py-4">
-        <div class="container text-info py-6 vl-parent">
-            <Loading v-model:active="isLoading"
-                      :can-cancel="false"
-                      :is-full-page="fullPage"
-                      :loader="loader"></Loading>
-            <div class="row py-6">
-                <div class="col-md-3 fixed">
-                    <div class="card text-center bg-secondary" style="width: 18rem;">
-                        <div class="card-header py-3">
-                            房型類別
-                        </div>
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item">
-                                <RouterLink class="py-2 nav-link btn-active" :to="`/products`">全部房型</RouterLink>
-                            </li>
-                            <li class="list-group-item" v-for="item in categories" :key="item">
-                                <RouterLink class="py-2 nav-link" :to="`/products?category=${item}`">{{ item }}</RouterLink>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-9">
-                    <div class="card mb-3" style="max-width: 990px; height: 302px;" v-for="product in products" :key="product.id">
-                        <div class="row">
-                            <div class="col-3">
-                                <img :src="product.imageUrl" class="rounded-start object-fit-cover" alt="..."
-                                    width="200" height="300">
-                            </div>
-                            <div class="col-9">
-                                <div class="row mb-5">
-                                    <div class="col-8">
-                                        <div class="py-4">
-                                            <h5 class="card-title border-bottom mb-2">{{product.title}}</h5>
-                                            <p class="card-text mb-4">{{product.unit}}</p>
-                                            <span class="badge bg-secondary">{{product.category}}</span>
-                                            <!-- <p class="card-text mb-7"><small class="text-muted">4貓房</small></p> -->
-                                        </div>
-                                    </div>
-                                    <div class="col-4 p-4 text-end position-relative">
-                                        <h3 v-if="product.origin_price === product.price">NT$ {{product.price}}/ 貓</h3>
-                                        <div v-else>
-                                            <h3 class="text-secondary">NT$ {{product.price}}/ 貓</h3>
-                                        <del class="card-text mb-7"><small class="text-muted">{{product.origin_price}}/一貓</small></del>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-8 m">
-                                        {{product.content}}
-                                        </div>
-                                    <div class="col-4" style="position: relative;">
-                                        <div class="btn-group position-absolute" role="group" aria-label="Basic outlined example"
-                                         style="bottom: 10px; right: 25px;">
-                                            <button type="button" class="btn btn-outline-primary">
-                                                <RouterLink :to=" `/product/${product.id}`" class="nav-link">查看更多</RouterLink>
-                                            </button>
-                                            <button type="button" class="btn btn-primary" @click.prevent="addToCart(product.id)">
-                                                <!-- <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
-                                                v-if="product.id === status.addCartLoading"></span> -->
-                                                加入購物車
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+  <!-- banner -->
+  <div class="aboutbanner mt-5" style="background-image: url('src/assets/images/roomforest.jpg'); height: 200px;">
+    <h2 class="text-info">貓咪旅館。</h2>
+  </div>
+  <div class="bg-primary py-4">
+    <div class="container text-info py-6 vl-parent">
+      <Loading v-model:active="isLoading" :can-cancel="false" :is-full-page="fullPage" :loader="loader"></Loading>
+      <div class="row py-md-6 py-sm-0">
+        <div class="col-md-3 fixed mb-6">
+          <div class="card text-center bg-secondary mb-2">
+            <div class="card-header py-3">
+              房型類別
             </div>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item list">
+                <RouterLink class="py-2 nav-link" :to="`/products`">全部房型</RouterLink>
+              </li>
+              <li class="list-group-item list" v-for="item in categories" :key="item">
+                <RouterLink class="py-2 nav-link" :to="`/products?category=${item}`">{{ item }}</RouterLink>
+              </li>
+            </ul>
+          </div>
         </div>
+        <div class="col-md-9 col-sm-12">
+          <div class="card mb-3" v-for="product in products" :key="product.id">
+            <div class="row">
+              <div class="col-3">
+                <div class="image-container">
+                  <RouterLink :to="`/product/${product.id}`">
+                    <img :src="product.imageUrl" class="rounded-start object-fit-cover " alt="..." width="223"
+                      height="300" style="z-index: 1;">
+                  </RouterLink>
+                </div>
+              </div>
+              <div class="col-9 position-relative">
+                <div class="row mb-4">
+                  <div class="col-md-8 col-sm-5">
+                    <div class="py-4">
+                      <h5 class="card-title border-bottom mb-2">{{ product.title }}</h5>
+                      <p class="card-text mb-4">{{ product.unit }}</p>
+                      <span class="badge bg-secondary">{{ product.category }}</span>
+                    </div>
+                  </div>
+                  <div class="col-md-4 p-4 text-end position-relative col-sm-7 p-sm-3">
+                    <h3 v-if="product.origin_price === product.price">NT$ {{ product.price }}/貓</h3>
+                    <div v-else>
+                      <h3 class="text-secondary">NT$ {{ product.price }}/貓</h3>
+                      <del class="card-text mb-7"><small class="text-muted">{{ product.origin_price }}/一貓</small></del>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-8">
+                    <div class="col-md-7 content">{{ product.content }}</div>
+
+                  </div>
+                  <div class="col-4">
+                    <div class="btn-group position-absolute" role="group" aria-label="Basic outlined example"
+                      style="bottom: 10px; right: 25px;">
+                      <button type="button" class="btn btn-outline-primary">
+                        <RouterLink :to="`/product/${product.id}`" class="nav-link">查看更多</RouterLink>
+                      </button>
+                      <button type="button" class="btn btn-primary" @click.prevent="addToCart(product.id)">
+                        加入購物車
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <Pagination :pagination="pagination" @emit-pages="getData"></Pagination>
+        </div>
+      </div>
     </div>
+  </div>
 </template>
 
 <script>
@@ -82,9 +82,9 @@ import axios from 'axios'
 import Loading from 'vue-loading-overlay'
 import 'vue-loading-overlay/dist/css/index.css'
 import { mapActions } from 'pinia'
-
+import Swal from 'sweetalert2'
+import Pagination from '@/components/PaginationView.vue'
 import cartStore from '@/stores/cartStore' // @ = src
-// console.log(import.meta.env.VITE_URL, import.meta.env.VITE_PATH)
 const { VITE_URL, VITE_PATH } = import.meta.env
 export default {
   data () {
@@ -94,11 +94,14 @@ export default {
       categories: ['1貓房', '2貓房', '4貓房', '5貓房'],
       isLoading: true,
       fullPage: true,
-      loader: 'bars'
+      loader: 'bars',
+      Swal,
+      pagination: {}
     }
   },
   components: {
-    Loading
+    Loading,
+    Pagination
   },
   watch: {
     '$route.query': {
@@ -118,10 +121,11 @@ export default {
             title: '成功取得商品列表',
             icon: 'success',
             position: 'top-end',
-            timer: 2000,
+            timer: 1000,
             showConfirmButton: false
           })
           this.products = res.data.products
+          this.pagination = res.data.pagination
           this.isLoading = false
         })
         .catch(err => {
@@ -137,7 +141,6 @@ export default {
     getCarts () {
       axios.get(`${VITE_URL}/v2/api/${VITE_PATH}/cart`)
         .then((res) => {
-        //   console.log(res)
           this.cart = res.data.data
         })
         .catch((err) => {
@@ -158,3 +161,56 @@ export default {
   }
 }
 </script>
+
+<style>
+.list:hover {
+  color: #fff;
+  background-color: #535F43;
+}
+
+.list:active {
+  color: #fff;
+  background-color: #535F43;
+}
+
+.image-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.image-container img {
+  transition: transform 1s ease;
+}
+
+.image-container:hover img {
+  transform: scale(1.3);
+}
+
+@media (max-width: 430px) {
+  .card {
+    width: 100%;
+    /* height: 200px; */
+  }
+  .content , .card-text {
+    display: none;
+  }
+  img {
+    height: 200px;
+    background-position: center;
+  background-size: cover;
+  overflow: hidden;
+  }
+  h3 {
+    font-size: 1.3rem;
+  }
+ }
+
+@media (max-width: 768px) {  }
+
+@media (max-width: 992px) {  }
+
+@media (max-width: 1200px) {  }
+
+@media (max-width: 1400px) {  }
+
+</style>

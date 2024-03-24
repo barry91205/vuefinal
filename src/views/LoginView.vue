@@ -2,10 +2,10 @@
     <div class="full-screen-bg">
         <div class="container middle">
             <div class="row" style="width: 720px;">
-                <div class="col-6 bg-primary middle">
-                    <img src="../../images/logo.jpg" alt="">
+                <div class="col-md-6 col-sm-12 bg-primary middle">
+                    <img src="../assets/images/logo.jpg" alt="">
                 </div>
-                <div class="col-6 bg-info p-4 py-6">
+                <div class="col-md-6 col-sm-12 bg-info p-4 py-6">
                     <div class="border-bottom mb-4">
                         <h2 class="text-primary">
                             管理者登入
@@ -65,18 +65,42 @@ export default {
     login () {
       const api = `${VITE_URL}/v2/admin/signin`
       axios.post(api, this.user)
-        .then((response) => {
-          const { token, expired } = response.data
-          alert('登入成功')
-
+        .then((res) => {
+          const { token, expired } = res.data
+          this.$Swal.fire({
+            title: '成功登入',
+            icon: 'success',
+            position: 'top-end',
+            timer: 1000,
+            showConfirmButton: false
+          })
           document.cookie = `hexToken=${token};expires=${new Date(expired)}`
-          // window.location = { name: 'Admin' }
           this.$router.push('/admin/home')
-        }).catch(() => {
-          alert('帳號或密碼錯誤，請重新登入！')
+        }).catch((err) => {
+          this.$Swal.fire({
+            icon: 'error',
+            title: err.response.data.message
+          })
+          this.$router.push('/login')
         })
     }
   }
 }
 
 </script>
+
+<style scoped>
+@media (max-width: 430px) {
+  img {
+    height: 300px;
+  }
+ }
+
+@media (max-width: 768px) {  }
+
+@media (max-width: 992px) {  }
+
+@media (max-width: 1200px) {  }
+
+@media (max-width: 1400px) {  }
+</style>

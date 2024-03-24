@@ -1,72 +1,70 @@
 <template>
   <div class="container">
-      <div class="d-flex justify-content-between py-4 py-md-5">
-        <h2 class="fw-bold">商品管理</h2>
-        <!-- btn 建立新產品 -->
-        <router-link to="/admin/addproduct">
-          <button class="btn btn-outline-primary">
+    <div class="d-flex justify-content-between py-4 py-md-5">
+      <h2 class="fw-bold">商品管理</h2>
+      <!-- btn 建立新產品 -->
+      <router-link to="/admin/addproduct">
+        <button class="btn btn-outline-primary">
           建立新的產品
         </button>
-        </router-link>
-      </div>
-      <!-- <div class="text-end mt-4">
-            <button class="btn btn-primary">
-                建立新的產品
-            </button>
-        </div> -->
-      <table class="table mt-4">
-        <thead>
-          <tr>
-            <th width="120">
-              分類
-            </th>
-            <th>房型名稱</th>
-            <th width="120">
-              原價
-            </th>
-            <th width="120">
-              售價
-            </th>
-            <th width="100">
-              是否啟用
-            </th>
-            <th width="120">
-              編輯
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <loading v-if="isLoading" :active="isLoading" :can-cancel="false"/>
-          <tr v-for="(item) in products" :key="item.id">
-            <td>{{ item.category }}</td>
-            <td>{{ item.title }}</td>
-            <td>
-              {{ item.origin_price }}
-            </td>
-            <td>
-              {{ item.price }}
-            </td>
-            <td>
-              <span class="text-success" v-if="item.is_enabled">啟用</span>
-              <span v-else>未啟用</span>
-            </td>
-            <td>
-              <div class="btn-group">
-                <router-link :to="'product/edit/'+ item.id">
-                  <button type="button" class="btn btn-outline-primary btn-sm">
+      </router-link>
+    </div>
+    <table class="table mt-4">
+      <thead>
+        <tr>
+          <th width="120">
+            分類
+          </th>
+          <th>房型名稱</th>
+          <th width="120">
+            原價
+          </th>
+          <th width="120">
+            售價
+          </th>
+          <th width="100">
+            是否啟用
+          </th>
+          <th width="120">
+            編輯
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- <loading v-if="isLoading" :active="isLoading" :can-cancel="false"/> -->
+        <Loading v-model:active="isLoading" :can-cancel="false" :is-full-page="fullPage" :loader="loader"></Loading>
+        <tr v-for="(item) in products" :key="item.id">
+          <td>{{ item.category }}</td>
+          <td>{{ item.title }}</td>
+          <td>
+            {{ item.origin_price }}
+          </td>
+          <td>
+            {{ item.price }}
+          </td>
+          <td>
+            <span class="text-success" v-if="item.is_enabled">啟用</span>
+            <span v-else>未啟用</span>
+          </td>
+          <td>
+            <div class="btn-group">
+              <router-link :to="'product/edit/' + item.id">
+                <button type="button" class="btn btn-outline-primary btn-sm">
                   編輯
                 </button>
-                </router-link>
-                <button type="button" class="btn btn-outline-danger btn-sm" @click="delProduct(item.id)">
-                  刪除
-                </button>
-              </div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      <!-- 分頁按鈕 -->
-      <!-- <pagination :pages="pages" :get-data="getData"></pagination>
+              </router-link>
+              <button type="button" class="btn btn-outline-danger btn-sm" @click="delProduct(item.id)">
+                刪除
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <Pagination :pagination="pagination" @emit-pages="getData"></Pagination>
+  <!-- 分頁按鈕 -->
+  <!-- <pagination :pages="pages" :get-data="getData"></pagination>
       <nav aria-label="Page navigation example">
         <ul class="pagination">
           <li class="page-item" :class="{disabled: !pages.has_pre}">
@@ -84,7 +82,7 @@
           </li>
         </ul>
       </nav> -->
-    </div>
+  <!-- </div> -->
   <!-- Modal -->
 
   <!-- <div id="delProductModal" ref="delProductModal" class="modal fade" tabindex="-1"
@@ -120,6 +118,7 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js'
 import axios from 'axios'
 import Loading from 'vue-loading-overlay'
 import 'vue-loading-overlay/dist/css/index.css'
+import Pagination from '@/components/PaginationView.vue'
 const { VITE_URL, VITE_PATH } = import.meta.env
 export default {
   data () {
@@ -133,10 +132,12 @@ export default {
       // 判斷：是否為新增產品
       //   isNew: false,
       pagination: {},
-      isLoading: true
+      isLoading: true,
+      loader: 'bars'
     }
   },
   components: {
+    Pagination,
     Loading
   },
   methods: {
@@ -144,7 +145,7 @@ export default {
       const url = `${VITE_URL}/v2/api/user/check`
       axios.post(url)
         .then((res) => {
-          this.getData()
+          // this.getData()
           //   console.log(res.data.success)
         })
         .catch((err) => {
@@ -159,7 +160,7 @@ export default {
       axios.get(url).then((res) => {
         console.log(res)
         this.products = res.data.products
-        this.allProducts = res.data.products
+        this.pagination = res.data.pagination
         this.isLoading = false
       }).catch(() => {
         // alert(err.response.data.message);
@@ -193,17 +194,10 @@ export default {
             title: '確定刪除商品?',
             icon: 'warning',
             showCancelButton: true,
-            confirmButtonColor: '#eb5a68',
-            cancelButtonColor: '#8bafd7',
+            confirmButtonColor: '#7D6E4D',
+            cancelButtonColor: '#C6BBA2',
             confirmButtonText: '確定刪除',
             cancelButtonText: '取消'
-          })
-          this.$Swal.fire({
-            position: 'top-end',
-            title: '已刪除',
-            icon: 'success',
-            showConfirmButton: false,
-            timer: 1000
           })
           this.getData()
         }).catch((err) => {

@@ -1,8 +1,8 @@
 <template>
   <div class="bg-primary">
     <div class="container text-info">
-      <div class="row py-6">
-        <div class="col-3 pt-6">
+      <div class="row py-md-6">
+        <div class="col-md-3 pt-6 col-sm-5">
           <div class="border-bottom mb-2">
             <h2>訂單確認。</h2>
           </div>
@@ -11,26 +11,32 @@
         </div>
       </div>
       <div class="row text-center">
-        <div class="col-4 step state rounded-start">填寫資料</div>
-        <div class="col-4 step">確認付款</div>
-        <div class="col-4 step rounded-end">完成訂單</div>
+        <div class="col-4 step state rounded-start">1.填寫資料</div>
+        <div class="col-4 step">2.確認付款</div>
+        <div class="col-4 step rounded-end">3.完成訂單</div>
       </div>
       <div class="row py-4">
-        <div class="col-8">
+        <div class="col-md-8 col-sm-12">
           <!-- {{ cart }} -->
-          <div class="d-flex justify-content-between mb-4">
+          <div v-if="carts.length === 0" class="text-info d-flex align-items-center justify-content-center mb-2" style="height:200px; background-color: rgba(99, 99, 99, 0.90); z-index: 100;">
+            購物車沒有任何商品
+            <router-link to="/products">
+              <button type="submit" class="btn btn-info ms-2">去逛逛</button>
+            </router-link>
+          </div>
+          <div class="d-flex justify-content-between mb-4" v-if="carts.length>0">
             <router-link to="/products">
               <button type="submit" class="btn btn-info">繼續購買</button>
             </router-link>
             <button type="submit" class="btn btn-outline-info" @click="deleteAllCarts">清空購物車</button>
           </div>
-          <div class="border mb-3 bg-info text-primary" style="max-width: 850px;" v-for="item in cart.carts"
+          <div class="border mb-3 bg-info text-primary" v-for="item in cart.carts"
             :key="item.id">
-            <div class="row g-0">
-              <div class="col-md-2">
-                <img :src="item.product.imageUrl" class="img-fluid rounded-start" alt="..." width="150">
+            <div class="row">
+              <div class="col-md-2 col-sm-3">
+                <img :src="item.product.imageUrl" class="img-fluid">
               </div>
-              <div class="cart col-md-10">
+              <div class="cart col-md-10 col-sm-9">
                 <div class="row">
                   <div class="col" style="width: 200px;">
                     <h5>{{ item.product.title }}</h5>
@@ -80,7 +86,7 @@
                   </div>
                 </div>
         </div>
-        <div class="col-4">
+        <div class="col-md-4 col-sm-12">
           <div class="row justify-content-center border py-4">
             <v-form ref="form" v-slot="{ errors }" @submit="createOrder">
               <div class="mb-3">
@@ -238,3 +244,29 @@ export default {
   }
 }
 </script>
+
+<style>
+.cart {
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+@media (max-width: 430px) {
+  .row {
+    display: flex;
+    /* flex-direction: column; */
+    border: none;
+  }
+
+}
+
+@media (max-width: 768px) {
+}
+
+@media (max-width: 992px) {}
+
+@media (max-width: 1200px) {}
+
+@media (max-width: 1400px) {}
+</style>

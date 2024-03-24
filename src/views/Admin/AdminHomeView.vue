@@ -32,7 +32,7 @@
         </div>
         <div class="col">
             <div class="card text-center">
-                <router-link to="/admin/coupon" class="text-decoration-none">
+                <router-link to="/admin/coupons" class="text-decoration-none">
                     <div class="card-body">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                             class="bi bi-ticket-detailed me-1 mb-1" viewBox="0 0 16 16">
@@ -48,7 +48,7 @@
         </div>
         <div class="col">
             <div class="card text-center">
-                <router-link to="/product" class="text-decoration-none">
+                <router-link to="/admin/articles" class="text-decoration-none">
                     <div class="card-body">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                             class="bi bi-chat-left-text me-1 mb-1" viewBox="0 0 16 16">
@@ -57,7 +57,7 @@
                             <path
                                 d="M3 3.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5M3 6a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 6m0 2.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5" />
                         </svg>
-                        聊天管理
+                        文章管理
                     </div>
                 </router-link>
             </div>

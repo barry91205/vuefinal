@@ -1,7 +1,7 @@
 <template>
     <div class="bg-primary">
         <div class="container text-info pt-6">
-            <div class="row pb-6">
+            <div class="row pb-6 pb-sm-0">
                 <div class="col-md-6">
                     <div class="col-md-4 my-6 me-2">
                         <div class="border-bottom">
@@ -12,15 +12,15 @@
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <div class="col-md-4 my-6 me-2"></div>
+                    <div class="col-md-4 my-6 me-2 my-sm-0"></div>
                     <h5 class="vertical-text">
                         細心溫柔使貓咪<br>
                         有家的感覺。
                     </h5>
                 </div>
             </div>
-            <div class="row py-6">
-                <div class="accordion" id="accordionExample">
+            <div class="row py-6 py-sm-0">
+                <div class="accordion" id="accordionExample" data-aos="fade-up">
                     <div class="accordion-item bg-primary">
                         <h2 class="accordion-header" id="headingOne">
                             <button class="accordion-button collapsed bg-secondary text-info" type="button" data-bs-toggle="collapse"
@@ -203,6 +203,21 @@
 
 <script>
 import 'bootstrap/dist/js/bootstrap.bundle.min.js'
-export default { // 組件的其餘內容
+import AOS from 'aos'
+import 'aos/dist/aos.css'
+export default {
+  mounted () {
+    AOS.init({
+      // Settings that can be overridden on per-element basis, by `data-aos-*` attributes:
+      offset: 200, // 到哪個位置會觸發
+      delay: 0, // values from 0 to 3000, with step 50ms
+      duration: 400, // values from 0 to 3000, with step 50ms
+      easing: 'ease', // default easing for AOS animations
+      once: false, // 指觸發一次
+      mirror: false, // whether elements should animate out while scrolling past them
+      anchorPlacement: 'top-bottom' // defines which position of the element regarding to window should trigger the animation
+
+    })
+  }
 }
 </script>

@@ -1,8 +1,8 @@
 <template>
   <div class="bg-primary">
-    <div class="container text-info">
-      <div class="row py-6">
-        <div class="col-3 pt-6">
+    <div class="container text-info py-6">
+      <div class="row">
+        <div class="col-md-3 col-sm-5 py-6">
           <div class="border-bottom mb-2">
             <h2>訂單確認。</h2>
           </div>
@@ -11,40 +11,39 @@
         </div>
       </div>
       <div class="row text-center">
-        <div class="col-4 step rounded-start">填寫資料</div>
-        <div class="col-4 step state">確認付款</div>
-        <div class="col-4 step rounded-end">訂單完成</div>
+        <div class="col-4 step rounded-start">1.填寫資料</div>
+        <div class="col-4 step state">2.確認付款</div>
+        <div class="col-4 step rounded-end">3.訂單完成</div>
       </div>
       <div class="row py-4">
-        <div class="col-6 border bg-secondary p-4" style="height: 100%;">
+        <div class="col-md-6 col-sm-12 border-top bg-secondary p-4 " style="height: 100%;">
           <h2>訂單人資訊</h2>
           <hr>
           <form action="" @submit.prevent="payOrder">
           <table class="table">
-            {{ order }}
             <thead>
             </thead>
             <tbody>
               <tr>
                 <th scope="row">姓名</th>
-                <td>王小草</td>
+                <td>{{ order.user.name }}</td>
                 <!-- <td>{{ user.name }}</td> -->
               </tr>
               <tr>
                 <th scope="row">電話</th>
-                <td>Jacob</td>
+                <td>{{ order.user.tel }}</td>
               </tr>
               <tr>
                 <th scope="row">Email</th>
-                <td colspan="2">Larry the Bird</td>
+                <td colspan="2">{{ order.user.email }}</td>
               </tr>
               <tr>
                 <th scope="row">地址</th>
-                <td>毛毛區貓貓路50號</td>
+                <td>{{ order.user.address }}</td>
               </tr>
               <tr>
                 <th scope="row">匯款方式</th>
-                <td>Jacob</td>
+                <td>信用卡</td>
               </tr>
               <tr>
                 <th scope="row">匯款狀態</th>
@@ -54,28 +53,29 @@
           </table>
         </form>
         </div>
-        <div class="col-6 border bg-secondary p-4" style="height: 100%;">
+        <div class="col-md-6 col-sm-12 border-top bg-secondary p-4" style="height: 100%;">
+          <!-- v-for="item in order" :key="item" -->
           <h2>訂單明細</h2>
           <hr>
           <div class="d-flex justify-content-between mb-4">
-                    <h5>訂單編號</h5><span>{{ orderId }}</span>
+                    <h5>訂單編號</h5><span>{{ order.id }}</span>
                   </div>
           <div class="d-flex justify-content-between mb-4">
-            <h5>小計</h5><span>NT$ 14000</span>
+            <h5>小計</h5><span>NT$ {{ order.total }}</span>
           </div>
           <div class="d-flex justify-content-between mb-4">
-            <h5>訂購日期</h5><span>{{ order.paid_date }}</span>
+            <h5>訂購日期</h5><span>{{ order.create_at }}</span>
           </div>
-          <div class="mb-4">
+          <div class="mb-4" v-for="item in productsData" :key="item.id">
             <div class="d-flex justify-content-between mb-4">
-              <p>星空房</p><span>x3</span>nt$1500
+              <p>{{ item.product.title }}<span> x {{ item.qty }}</span></p>NT$ {{ item.product.price }}
             </div>
 
           </div>
           <div class="d-flex justify-content-between">
-            <h5>共計</h5><span>NT$ 14000</span>
+            <h5>共計</h5><span>NT$ {{ order.total }}</span>
           </div>
-          <button type="submit" class="btn btn-info rounded-0 w-100 mt-4">確認送出</button>
+          <button type="submit" class="btn btn-info rounded-0 w-100 mt-4" @click="payOrder">確認送出</button>
         </div>
       </div>
     </div>
@@ -102,7 +102,7 @@ export default {
       const url = `${VITE_URL}/v2/api/${VITE_PATH}/order/${this.orderId}`
       axios.get(url).then((res) => {
         this.order = res.data.order
-        console.log(res)
+        this.productsData = res.data.order.products
       }).catch(() => {
       })
     },
@@ -110,12 +110,24 @@ export default {
       const url = `${VITE_URL}/v2/api/${VITE_PATH}/pay/${this.orderId}`
       axios.post(url).then(() => {
         this.getOrder()
-      }).catch(() => {
+        this.$Swal.fire({
+          title: '成功付款',
+          icon: 'success',
+          // position: 'top-end',
+          timer: 2000,
+          showConfirmButton: false
+        })
+        this.$router.push('/orderfinish')
+      }).catch((err) => {
+        this.$Swal.fire({
+          icon: 'error',
+          title: err.response.data.message
+        })
       })
     }
   },
   created () {
-    this.orderId = this.$route.params.orderId
+    this.orderId = this.$route.params.id
     this.getOrder()
   },
   mounted () {
@@ -123,3 +135,7 @@ export default {
   }
 }
 </script>
+
+<style>
+
+</style>

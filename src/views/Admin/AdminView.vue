@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-3 bg-primary p-4 sidebarMenu">
                 <router-link to="/home">
-                    <img src="../../../images/logo.jpg" alt="" width="200px">
+                    <img src="../../assets/images/logo.jpg" alt="" width="200px">
                 </router-link>
                 <router-link to="/admin/home">
                     <button type="button" class="btn btn-primary w-100 mb-2">後臺首頁</button>
@@ -14,8 +14,11 @@
                 <router-link to="/admin/orders">
                   <button type="button" class="btn btn-primary w-100 mb-2">訂單管理</button>
                 </router-link>
-                <router-link to="/admin/coupon">
+                <router-link to="/admin/coupons">
                   <button type="button" class="btn btn-primary w-100 mb-2">酷碰管理</button>
+                </router-link>
+                <router-link to="/admin/articles">
+                  <button type="button" class="btn btn-primary w-100 mb-2">文章管理</button>
                 </router-link>
                 <hr>
                 <router-link to="/home">

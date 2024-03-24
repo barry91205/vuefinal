@@ -1,15 +1,17 @@
 <template>
   <!-- banner -->
-  <div class="banner mt-5" style="background-image: url('images/bannercat.jpg');">
+  <div class="banner mt-5" style="background-image: url('src/assets/images/bannercat.jpg');">
     <div class="col-md-4 text-center">
       <h2 class="text-white">以喵星人視角，再次探索這顆美麗且再熟悉不過的藍色星球</h2>
-      <button class="btn btn-outline-info mt-4">探索星球</button>
+      <router-link to="/products">
+        <button class="btn btn-outline-info mt-4">探索星球</button>
+      </router-link>
     </div>
   </div>
   <!-- 關於喵星球 -->
   <div class="bg-primary">
-    <div class="container text-info py-6">
-      <div class="row py-6">
+    <div class="container text-info pt-6 pb-6">
+      <div class="row py-md-6 py-sm-0">
         <div class="col-md-6" data-aos="fade-left">
           <div class="col-md-4 my-6 me-2">
             <div class="border-bottom">
@@ -27,7 +29,7 @@
           </h5>
         </div>
       </div>
-      <div class="row py-6">
+      <div class="row py-md-6 py-sm-0">
         <div class="col-md-6" data-aos="fade-right">
           <p>喵星球，台北市中心獨一無二的貓旅館，是給貓皇的理想選擇。
             「讓貓主人安心出門」不僅是喵星球的使命，更是我們對每位貓貴賓的承諾。在這裡，我們提供的不僅是最高規格的房型與舒適設備，更有溫暖及貼心的照顧服務，保證每位貓貴賓都能享受到頂級的住宿體驗。貓主人在外度假出差時，貓貴賓也正在台北市的喵星球享受一段悠閒而放鬆的度假時光。
@@ -44,7 +46,7 @@
   <!-- 打造貓的星級渡假體驗 -->
   <div class="bg-secondary">
     <div class="container text-info py-6">
-      <div class="row py-6">
+      <div class="row py-md-6 py-sm-0">
         <div class="col-md-6">
           <div class="col-md-4 my-6 me-2" data-aos="fade-right">
             <div class="border-bottom">
@@ -61,7 +63,7 @@
           </h5>
         </div>
       </div>
-      <div class="row py-6">
+      <div class="row py-md-6 py-sm-0">
         <div class="col-md-6" data-aos="fade-right">
           <p>歡迎來訪「喵星球」：<br>
             為了每位貓賓客的到來，用心規劃一系列為貓量身打造的星級度假體驗，期望在貓奴請假的期間，愛貓也能轉換心情，開啟一場專屬於貓的奢華之旅。
@@ -73,9 +75,9 @@
       </div>
     </div>
   </div>
-  <div style="background-image: url('images/compassion.jpg');">
+  <div style="background-image: url('src/assets/images/compassion.jpg');">
     <div class="container text-info py-6">
-      <div class="row py-6">
+      <div class="row py-md-6 py-sm-0">
         <div class="col-md-6">
           <div class="col-md-4 my-6 me-2" data-aos="fade-right">
             <div class="border-bottom">
@@ -86,14 +88,14 @@
           </div>
         </div>
         <div class="col-md-6">
-          <div class="col-md-4 my-6 me-2"  data-aos="fade-up"></div>
-          <h5 class="vertical-text">
+          <div class="col-md-4 my-6 me-2"></div>
+          <h5 class="vertical-text" data-aos="fade-up">
             最貼近貓咪習性的<br>
             房型設計。
           </h5>
         </div>
       </div>
-      <div class="row py-6">
+      <div class="row py-md-6 py-sm-0">
         <div class="col-md-6" data-aos="fade-right">
           <p>全木製打造的房間散發木質溫潤的香氣。<br>
 
@@ -110,7 +112,7 @@
   </div>
   <div class="bg-dark">
     <div class="container text-info py-6">
-      <div class="row py-6">
+      <div class="row py-md-6 py-sm-0">
         <div class="col-md-6">
           <div class="col-md-4 my-6 me-2" data-aos="fade-right">
             <div class="border-bottom">
@@ -190,4 +192,18 @@ export default {
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+@media (max-width: 375px) {
+  .banner {
+    height: 200px;
+  }
+ }
+
+@media (max-width: 768px) {  }
+
+@media (max-width: 992px) {  }
+
+@media (max-width: 1200px) {  }
+
+@media (max-width: 1400px) {  }
+</style>

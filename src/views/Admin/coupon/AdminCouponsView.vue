@@ -1,66 +1,59 @@
 <template>
-    <div class="container">
-        <div class="d-flex justify-content-between py-4 py-md-5">
-          <h2 class="fw-bold">商品管理</h2>
-          <!-- btn 建立新產品 -->
-          <router-link to="/admin/addproduct">
-            <button class="btn btn-outline-primary">
-           + 新增酷碰卷
-          </button>
-          </router-link>
-        </div>
-        <table class="table mt-4">
-          <thead>
-            <tr>
-              <th width="120">
-                名稱
-              </th>
-              <th>酷碰代碼</th>
-              <th width="120">
-                折扣
-              </th>
-              <th width="120">
-                期限
-              </th>
-              <th width="100">
-                是否啟用
-              </th>
-              <th width="120">
+  <div class="container">
+    <div class="d-flex justify-content-between py-4 py-md-5">
+      <h2 class="fw-bold">酷碰管理</h2>
+      <router-link>
+        <button class="btn btn-outline-primary">
+          + 新增酷碰卷
+        </button>
+      </router-link>
+    </div>
+    <!-- <table class="table mt-4">
+      <thead>
+        <tr>
+          <th width="120">
+            名稱
+          </th>
+          <th>酷碰代碼</th>
+          <th width="120">
+            折扣
+          </th>
+          <th width="120">
+            期限
+          </th>
+          <th width="100">
+            是否啟用
+          </th>
+          <th width="120">
+            編輯
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="text-success">啟用</span>
+            <span>未啟用</span>
+          </td>
+          <td>
+            <div class="btn-group">
+              <button type="button" class="btn btn-outline-primary btn-sm">
                 編輯
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="(item) in products" :key="item.id">
-              <td>{{ item.category }}</td>
-              <td>{{ item.title }}</td>
-              <td>
-                {{ item.origin_price }}
-              </td>
-              <td>
-                {{ item.price }}
-              </td>
-              <td>
-                <span class="text-success" v-if="item.is_enabled">啟用</span>
-                <span v-else>未啟用</span>
-              </td>
-              <td>
-                <div class="btn-group">
-                  <router-link :to="'product/edit/'+ tempProduct.id">
-                    <button type="button" class="btn btn-outline-primary btn-sm">
-                    編輯
-                  </button>
-                  </router-link>
-                  <button type="button" class="btn btn-outline-danger btn-sm" @click="delProduct">
-                    刪除
-                  </button>
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <!-- 分頁按鈕 -->
-        <!-- <pagination :pages="pages" :get-data="getData"></pagination>
+              </button>
+              <button type="button" class="btn btn-outline-danger btn-sm">
+                刪除
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table> -->
+    <!-- 分頁按鈕 -->
+    <!-- <pagination :pages="pages" :get-data="getData"></pagination>
         <nav aria-label="Page navigation example">
           <ul class="pagination">
             <li class="page-item" :class="{disabled: !pages.has_pre}">
@@ -78,5 +71,47 @@
             </li>
           </ul>
         </nav> -->
-      </div>
-      </template>
+  </div>
+</template>
+
+<!-- <script>
+import axios from 'axios'
+const { VITE_URL, VITE_PATH } = import.meta.env
+
+export default {
+  data () {
+    return {
+      coupons: [],
+      allCoupons: [],
+      pagination: {},
+      isLoading: true
+    }
+  },
+  methods: {
+    getCoupon (page = 1) {
+      const url = `${VITE_URL}/v2/api/${VITE_PATH}/admin/coupons?page=${page}`
+      axios.get(url).then(res => {
+        const { coupons, pagination } = res.data
+        this.allCoupons = coupons
+        this.coupons = coupons
+        this.pagination = pagination
+        this.$Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          title: '成功取得酷碰卷資訊',
+          showConfirmButton: false,
+          timer: 1000
+        })
+      }).catch(err => {
+        this.$Swal.fire({
+          icon: 'error',
+          title: err.response.data.message
+        })
+      })
+    }
+  },
+  mounted () {
+    // this.getCoupon()
+  }
+}
+</script> -->

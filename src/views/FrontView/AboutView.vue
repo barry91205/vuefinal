@@ -1,6 +1,6 @@
 <template>
   <!-- banner -->
-  <div class="aboutbanner mt-5" style="background-image: url('images/aboutbanner.jpg');">
+  <div class="aboutbanner mt-5" style="background-image: url('src/assets/images/aboutbanner.jpg');">
     <div class="text-center transparent-box">
       <h2 class="text-white">貓主人最安心託付的
         毛貓孩旅館。</h2>
@@ -9,7 +9,7 @@
   <!-- 喵店長 -->
   <div class="bg-primary">
     <div class="container text-info py-6">
-      <div class="row py-6">
+      <div class="row py-md-6 py-sm-0">
         <div class="col-md-6" data-aos="fade-right">
           <div class="col-md-4 my-6 me-2">
             <div class="border-bottom mb-2">
@@ -19,13 +19,13 @@
             </div>
             <h2>奶茶</h2>
           </div>
-          <div class="col-auto me-auto">
+          <div class="col-auto me-auto mb-sm-2">
             貓店長可於空中貓道自在來去走動，<br>
             無需顧及進出工作的貓管家。
           </div>
         </div>
         <div class="col-md-6" data-aos="flip-up">
-          <img src="../../../images/catmanager.jpg" alt="" height="470px" width="636">
+          <img class="about-image" src="../../assets/images/catmanager.jpg" alt="" height="470px" width="636">
         </div>
       </div>
     </div>
@@ -33,7 +33,7 @@
   <!-- 環境介紹 -->
   <div class="bg-secondary">
     <div class="container text-info py-6">
-      <div class="row py-6">
+      <div class="row py-md-6 py-sm-0">
         <div class="col-md-6" data-aos="fade-right">
           <div class="col-md-4 my-6 me-2">
             <div class="border-bottom mb-2">
@@ -43,7 +43,7 @@
               </h2>
             </div>
           </div>
-          <div class="col-auto me-auto">
+          <div class="col-auto me-auto mb-sm-2">
             為營造完美度假體驗，<br>
             特地將整棵樹搬進Villa，<br>
             讓愛貓在樹上盡情跳躍、釋放野性。獲得十足安全感之餘，<br>
@@ -51,19 +51,19 @@
           </div>
         </div>
         <div class="col-md-6" data-aos="flip-right">
-          <img src="../../../images/tree.jpg" alt="" height="500px" width="300">
+          <img src="../../assets/images/tree.jpg" alt="" height="500px" width="300">
         </div>
       </div>
     </div>
   </div>
   <div class="bg-secondary">
     <div class="container text-info py-6">
-      <div class="row py-6">
+      <div class="row py-md-6 py-sm-0">
         <div class="col-md-6" data-aos="flip-right">
-          <img src="../../../images/floor.jpg" alt="" height="500px" width="300">
+          <img src="../../assets/images/floor.jpg" alt="" height="500px" width="300">
         </div>
         <div class="col-md-6" data-aos="fade-right">
-          <div class="col-md-4 my-6 me-2">
+          <div class="col-md-5 my-6 me-2">
             <div class="border-bottom mb-2">
               <h2>
                 挑高垂直房型<br>
@@ -71,7 +71,7 @@
               </h2>
             </div>
           </div>
-          <div class="col-auto me-auto">
+          <div class="col-auto me-auto mb-sm-2">
             刻意挑高的垂直設計，讓上下空間變得自由而寬廣。<br>
             透過實木步道及跳台，將動線從地面延伸至天花板，<br>
             滿足愛貓的攀爬天性。 堅持選用全木建材，<br>
@@ -83,7 +83,7 @@
   </div>
   <div class="bg-secondary">
     <div class="container text-info py-6">
-      <div class="row py-6">
+      <div class="row py-md-6 py-sm-0">
         <div class="col-md-6" data-aos="fade-right">
           <div class="col-md-6 my-6 me-2">
             <div class="border-bottom mb-2">
@@ -94,7 +94,7 @@
               </h2>
             </div>
           </div>
-          <div class="col-auto me-auto">
+          <div class="col-auto me-auto mb-sm-2">
             貓客房皆配備獨立抽風空調＆<br>
             醫療無塵室等級潔淨氣流過濾系統PUROtech VAF，<br>
             徹底潔淨每間客房，搭配24小時智慧面板偵測系統，<br>
@@ -102,7 +102,7 @@
           </div>
         </div>
         <div class="col-md-6" data-aos="flip-right">
-          <img src="../../../images/airconditioner.jpg" alt="" height="500px" width="300">
+          <img src="../../assets/images/airconditioner.jpg" alt="" height="500px" width="300">
         </div>
       </div>
     </div>
@@ -111,7 +111,7 @@
     <div class="container text-info py-6">
       <div class="row py-6">
         <div class="col-md-6" data-aos="flip-right">
-          <img src="../../../images/water.jpg" alt="" height="500px" width="300">
+          <img src="../../assets/images/water.jpg" alt="" height="500px" width="300">
         </div>
         <div class="col-md-6" data-aos="fade-right">
           <div class="col-md-4 my-6 me-2">
@@ -132,7 +132,7 @@
   </div>
   <div class="bg-dark">
     <div class="container text-info py-6">
-      <div class="row py-6">
+      <div class="row py-md-6 py-sm-0">
         <div class="col-md-6" data-aos="fade-right">
           <div class="col-md-4 my-6 me-2">
             <div class="border-bottom">
@@ -150,7 +150,7 @@
           </h5>
         </div>
       </div>
-      <div class="row pt-6">
+      <div class="row pt-6 py-sm-0">
         <div class="col-md-6">
           <p>照護員可以依照貓貴賓的個別需求給予客製化服務，<br>
             貓森旅將依照個別指定需求報價，請直接洽詢喵星球。<br>
@@ -160,31 +160,31 @@
         <div class="col-md-6">
         </div>
       </div>
-      <div class="row pb-6 pt-4" data-aos="fade-up"
+      <div class="row pb-6 pt-md-4 py-sm-0" data-aos="fade-up"
      data-aos-duration="1500">
         <div class="icons">
           <div class="icon-box text-center">
-            <img src="../../../images/caticon.png" alt="" height="50px" width="50px">
+            <img class="icon" src="../../assets/images/caticon.png" alt="" height="50px" width="50px">
             <p>刷牙</p>
           </div>
           <div class="icon-box text-center">
-            <img src="../../../images/caticon.png" alt="" height="50px" width="50px">
+            <img class="icon" src="../../assets/images/caticon.png" alt="" height="50px" width="50px">
             <p>餵藥</p>
           </div>
           <div class="icon-box text-center">
-            <img src="../../../images/caticon.png" alt="" height="50px" width="50px">
+            <img class="icon" src="../../assets/images/caticon.png" alt="" height="50px" width="50px">
             <p>擦藥</p>
           </div>
           <div class="icon-box text-center">
-            <img src="../../../images/caticon.png" alt="" height="50px" width="50px">
+            <img class="icon" src="../../assets/images/caticon.png" alt="" height="50px" width="50px">
             <p>點藥</p>
           </div>
           <div class="icon-box text-center">
-            <img src="../../../images/caticon.png" alt="" height="50px" width="50px">
+            <img class="icon" src="../../assets/images/caticon.png" alt="" height="50px" width="50px">
             <p>剪指甲</p>
           </div>
           <div class="icon-box text-center">
-            <img src="../../../images/caticon.png" alt="" height="50px" width="50px">
+            <img class="icon" src="../../assets/images/caticon.png" alt="" height="50px" width="50px">
             <p>專人陪伴</p>
           </div>
         </div>
@@ -212,3 +212,25 @@ export default {
   }
 }
 </script>
+<style>
+@media (max-width: 375px) {
+  .aboutbanner {
+    height: 200px;
+    padding: 10px;
+  }
+  img {
+    width: 100%;
+  }
+  .icon {
+    width: 40px;
+  }
+ }
+
+@media (max-width: 768px) {  }
+
+@media (max-width: 992px) {  }
+
+@media (max-width: 1200px) {  }
+
+@media (max-width: 1400px) {  }
+</style>

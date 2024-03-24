@@ -1,6 +1,10 @@
 import { defineStore } from 'pinia'
 import axios from 'axios'
-
+import Swal from 'sweetalert2'
+import Loading from 'vue-loading-overlay'
+import 'vue-loading-overlay/dist/css/index.css'
+import { toast } from 'vue3-toastify'
+import 'vue3-toastify/dist/index.css'
 const { VITE_URL, VITE_PATH } = import.meta.env
 
 export default defineStore('cartStore', {
@@ -11,30 +15,36 @@ export default defineStore('cartStore', {
     total: 0,
     status: {
       addCartLoading: ''
-    }
+    },
+    Swal
   }),
+  components: {
+    Loading,
+    toast
+  },
   actions: {
     addToCart (id, qty = 1) {
       const cart = {
         product_id: id,
         qty
       }
-      // this.status.addCartLoading = id
       axios.post(`${VITE_URL}/v2/api/${VITE_PATH}/cart`, { data: cart })
         .then((res) => {
-          console.log(res)
-          this.getCart()
-          this.$Swal.fire({
-            title: '成功取得商品',
+          this.isLoading = true
+          Swal.fire({
+            title: '已加入購物車',
             icon: 'success',
             position: 'top-end',
-            timer: 2000,
+            timer: 1000,
             showConfirmButton: false
-          }).catch((err) => {
-            this.$Swal.fire({
-              icon: 'error',
-              title: err.response.data.message
-            })
+          })
+          this.getCart()
+          this.isLoading = false
+        })
+        .catch((err) => {
+          this.$Swal.fire({
+            icon: 'error',
+            title: err.response.data.message
           })
         })
     },

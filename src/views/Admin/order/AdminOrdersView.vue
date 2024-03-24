@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <h2 class="fw-bold">商品管理</h2>
+        <h2 class="fw-bold">訂單管理</h2>
         <table class="table-hover table">
             <thead class="bg-dark">
                 <tr class="align-middle">
@@ -38,20 +38,17 @@ export default {
     return {
       allOrders: [],
       orders: [],
-      searchInput: '',
       pagination: {},
       isLoading: true,
-      pages: {}
+      page: {}
     }
   },
   methods: {
     getOrder (page = 1) {
       axios.get(`${VITE_URL}/v2/api/${VITE_PATH}/admin/orders?page=${page}`)
         .then((res) => {
-          // const { orders } = res.data
-          // this.allOrders = orders
-          // this.orders = orders
           this.orders = res.data.orders
+          this.pagination = res.data.pagination
           console.log(res)
         })
         .catch((err) => {

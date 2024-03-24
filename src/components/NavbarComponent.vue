@@ -1,22 +1,25 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-primary bg-primary fixed-top shadow-sm">
+  <nav class="navbar navbar-expand-lg navbar-primary bg-primary fixed-top shadow-sm opacity-80">
     <div class="container">
       <RouterLink class="navbar-brand text-info" to="/home">喵星球</RouterLink>
-      <button class="navbar-toggler" type="button" aria-controls="navbarNavAltMarkup" aria-expanded="false"
-        aria-label="Toggle navigation">
+      <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse"
+        data-bs-target="#navbarSupportedContent" aria-controls="navbarNavAltMarkup" aria-expanded="false"
+        aria-label="Toggle navigation" @click="toggleMenu">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div class="navbar-nav">
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav">
           <RouterLink to="/about" class="nav-link text-info">關於喵星球</RouterLink>
           <RouterLink to="/products" class="nav-link text-info">房型列表</RouterLink>
           <RouterLink to="/q&a" class="nav-link text-info">Q&A</RouterLink>
-        </div>
+        </ul>
         <div class="navbar-nav ms-auto">
           <router-link to="/login" class="btn nav-link text-info">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
-  <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z"/>
-</svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-person"
+              viewBox="0 0 16 16">
+              <path
+                d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z" />
+            </svg>
           </router-link>
           <RouterLink to="/checkout" class="btn position-relative text-info">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-basket2"
@@ -59,3 +62,19 @@ export default {
   }
 }
 </script>
+
+<style>
+@media (min-width: 375px) {
+  .nav-link {
+    text-align: center;
+  }
+ }
+
+@media (min-width: 768px) {  }
+
+@media (min-width: 992px) {  }
+
+@media (min-width: 1200px) {  }
+
+@media (min-width: 1400px) {  }
+</style>

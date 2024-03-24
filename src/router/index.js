@@ -36,6 +36,10 @@ const routes = [
       {
         path: 'paycheck/:id',
         component: () => import('@/views/FrontView/PayCheckView.vue')
+      },
+      {
+        path: '/orderfinish',
+        component: () => import('@/views/FrontView/OrderFinishView.vue')
       }
     ]
   },
@@ -74,12 +78,21 @@ const routes = [
         component: () => import('@/views/Admin/order/AdminOrdersView.vue')
       },
       {
-        path: 'coupon',
-        name: '後臺優惠卷列表',
-        component: () => import('@/views/Admin/coupon/AdminCouponsView.vue')
+        path: 'coupons',
+        name: '後臺酷碰卷列表',
+        component: () => import('@/views/Admin/coupon/AdminCoupons.vue')
+      },
+      {
+        path: 'articles',
+        name: '後臺文章列表',
+        component: () => import('@/views/Admin/article/AdminArticlesView.vue')
       }
     ]
   }
+  // {
+  //   path: '/:pathMatch(.*)*',
+  //   component: () => import('@/views/NotFound.vue')
+  // }
 ]
 
 const router = createRouter({
