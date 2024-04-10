@@ -1,6 +1,6 @@
 <template>
     <div class="bg-primary">
-        <div class="container text-info pt-6">
+        <div class="container text-info py-6">
             <div class="row pb-6 pb-sm-0">
                 <div class="col-md-6">
                     <div class="col-md-4 my-6 me-2">

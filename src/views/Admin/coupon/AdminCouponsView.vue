@@ -2,13 +2,11 @@
   <div class="container">
     <div class="d-flex justify-content-between py-4 py-md-5">
       <h2 class="fw-bold">酷碰管理</h2>
-      <router-link>
-        <button class="btn btn-outline-primary">
+        <button class="btn btn-outline-primary" @click="openCouponModal('createNew')">
           + 新增酷碰卷
         </button>
-      </router-link>
     </div>
-    <!-- <table class="table mt-4">
+    <table class="table table-hover mt-4">
       <thead>
         <tr>
           <th width="120">
@@ -30,62 +28,61 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
+        <tr v-for="coupon in coupons" :key="coupon.id">
+          <td>{{ coupon.title }}</td>
+          <td>{{ coupon.code }}</td>
+          <td>{{ coupon.percent }}%</td>
+          <td>{{ formatDate(coupon.due_date) }}</td>
           <td>
-            <span class="text-success">啟用</span>
-            <span>未啟用</span>
+            <span class="text-success" v-if="coupon.is_enabled">啟用</span>
+            <span v-else>未啟用</span>
           </td>
           <td>
             <div class="btn-group">
-              <button type="button" class="btn btn-outline-primary btn-sm">
+              <button type="button" class="btn btn-outline-primary btn-sm" @click="openCouponModal('edit', coupon)">
                 編輯
               </button>
-              <button type="button" class="btn btn-outline-danger btn-sm">
+              <button type="button" class="btn btn-outline-danger btn-sm" @click="openCouponModal('delete', coupon)">
                 刪除
               </button>
             </div>
           </td>
         </tr>
       </tbody>
-    </table> -->
+    </table>
     <!-- 分頁按鈕 -->
-    <!-- <pagination :pages="pages" :get-data="getData"></pagination>
-        <nav aria-label="Page navigation example">
-          <ul class="pagination">
-            <li class="page-item" :class="{disabled: !pages.has_pre}">
-              <a class="page-link" href="#" aria-label="Previous" @click.prevent="getData(pages.current_page -1)">
-                <span aria-hidden="true">&laquo;</span>
-              </a>
-            </li>
-            <li class="page-item" :class="{active: page === pages.current_page}" v-for="page in pages.total_pages" :key="page + 123">
-              <a class="page-link" href="#" @click.prevent="getData(page)"> {{page}} </a>
-            </li>
-            <li class="page-item" :class="{disabled: !pages.has_next}">
-              <a class="page-link" href="#" aria-label="Next">
-                <span aria-hidden="true">&raquo;</span>
-              </a>
-            </li>
-          </ul>
-        </nav> -->
   </div>
+  <!-- 編輯新增優惠券 -->
+  <CouponModal ref="couponModal"
+  :temp-Coupons="tempCoupons"
+  :is-new="isNew"
+  :clear-input="clearInput"
+  @update="getCoupon"
+  ></CouponModal>
+  <!-- 刪除優惠券 -->
+ <CouponDelModal ref="couponDelModal" :is-new="isNew"
+  :temp-Coupons="tempCoupons" @update="getCoupon">
+ </CouponDelModal>
 </template>
 
-<!-- <script>
+<script>
 import axios from 'axios'
+import CouponModal from '../../../components/CouponModal.vue'
+import CouponDelModal from '../../../components/CouponDelModal.vue'
 const { VITE_URL, VITE_PATH } = import.meta.env
-
 export default {
   data () {
     return {
       coupons: [],
-      allCoupons: [],
+      tempCoupons: {},
       pagination: {},
+      isNew: false,
       isLoading: true
     }
+  },
+  components: {
+    CouponModal,
+    CouponDelModal
   },
   methods: {
     getCoupon (page = 1) {
@@ -95,23 +92,42 @@ export default {
         this.allCoupons = coupons
         this.coupons = coupons
         this.pagination = pagination
-        this.$Swal.fire({
-          position: 'top-end',
-          icon: 'success',
-          title: '成功取得酷碰卷資訊',
-          showConfirmButton: false,
-          timer: 1000
-        })
       }).catch(err => {
         this.$Swal.fire({
           icon: 'error',
           title: err.response.data.message
         })
       })
+    },
+    formatDate (timestamp) {
+      const getTime = new Date(timestamp * 1000)
+      return getTime.toLocaleDateString()
+    },
+    openCouponModal (isNew, item) {
+      if (isNew === 'createNew') {
+        this.tempCoupon = {
+          // 預設取得當天日期、預設不啟用
+          due_date: Math.floor(new Date().getTime() / 1000),
+          is_enabled: 0
+        }
+        this.isNew = true
+        this.$refs.couponModal.showModal()
+      } else if (isNew === 'edit') {
+        this.tempCoupons = { ...item } // 帶入資料
+        this.isNew = false
+        this.$refs.couponModal.showModal()
+      } else if (isNew === 'delete') {
+        this.tempCoupons = { ...item }
+        this.$refs.couponDelModal.showModal()
+      }
+    },
+    clearInput () {
+      this.tempCoupons = { // 清除
+      }
     }
   },
   mounted () {
-    // this.getCoupon()
+    this.getCoupon()
   }
 }
-</script> -->
+</script>

@@ -3,13 +3,19 @@
     <div class="d-flex justify-content-between py-4 py-md-5">
       <h2 class="fw-bold">商品管理</h2>
       <!-- btn 建立新產品 -->
-      <router-link to="/admin/addproduct">
-        <button class="btn btn-outline-primary">
+      <div>
+        <button
+      @click="openModal('uploadImgModal')"
+      class="btn btn-primary me-2"
+    >
+      上傳圖片
+    </button>
+        <button class="btn btn-outline-primary" @click="openModal('productModal')">
           建立新的產品
         </button>
-      </router-link>
     </div>
-    <table class="table mt-4">
+      </div>
+    <table class="table table-hover mt-4">
       <thead>
         <tr>
           <th width="120">
@@ -32,7 +38,7 @@
       </thead>
       <tbody>
         <!-- <loading v-if="isLoading" :active="isLoading" :can-cancel="false"/> -->
-        <Loading v-model:active="isLoading" :can-cancel="false" :is-full-page="fullPage" :loader="loader"></Loading>
+        <Loading v-model:active="isLoading" :can-cancel="false" :loader="loader"></Loading>
         <tr v-for="(item) in products" :key="item.id">
           <td>{{ item.category }}</td>
           <td>{{ item.title }}</td>
@@ -48,12 +54,10 @@
           </td>
           <td>
             <div class="btn-group">
-              <router-link :to="'product/edit/' + item.id">
-                <button type="button" class="btn btn-outline-primary btn-sm">
+                <button type="button" class="btn btn-outline-primary btn-sm" @click="openModal('editModal', item)">
                   編輯
                 </button>
-              </router-link>
-              <button type="button" class="btn btn-outline-danger btn-sm" @click="delProduct(item.id)">
+              <button type="button" class="btn btn-outline-danger btn-sm" @click="openModal('delProductModal', item)">
                 刪除
               </button>
             </div>
@@ -64,53 +68,19 @@
   </div>
   <Pagination :pagination="pagination" @emit-pages="getData"></Pagination>
   <!-- 分頁按鈕 -->
-  <!-- <pagination :pages="pages" :get-data="getData"></pagination>
-      <nav aria-label="Page navigation example">
-        <ul class="pagination">
-          <li class="page-item" :class="{disabled: !pages.has_pre}">
-            <a class="page-link" href="#" aria-label="Previous" @click.prevent="getData(pages.current_page -1)">
-              <span aria-hidden="true">&laquo;</span>
-            </a>
-          </li>
-          <li class="page-item" :class="{active: page === pages.current_page}" v-for="page in pages.total_pages" :key="page + 123">
-            <a class="page-link" href="#" @click.prevent="getData(page)"> {{page}} </a>
-          </li>
-          <li class="page-item" :class="{disabled: !pages.has_next}">
-            <a class="page-link" href="#" aria-label="Next">
-              <span aria-hidden="true">&raquo;</span>
-            </a>
-          </li>
-        </ul>
-      </nav> -->
-  <!-- </div> -->
   <!-- Modal -->
-
-  <!-- <div id="delProductModal" ref="delProductModal" class="modal fade" tabindex="-1"
-           aria-labelledby="delProductModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content border-0">
-            <div class="modal-header bg-danger text-white">
-              <h5 id="delProductModalLabel" class="modal-title">
-                <span>刪除產品</span>
-              </h5>
-              <button type="button" class="btn-close"
-              data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-              是否刪除
-              <strong class="text-danger">{{ tempProduct.title }}</strong> 商品(刪除後將無法恢復)。
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
-                取消
-              </button>
-              <button type="button" class="btn btn-danger" @click="delProduct(item.id)">
-                確認刪除
-              </button>
-            </div>
-          </div>
-        </div>
-      </div> -->
+  <Product-Modal
+    :current-product="currentProduct"
+    :is-new="isNew"
+    @product-instance="getProductModal"
+    @refresh-products="refreshProducts"
+  ></Product-Modal>
+  <Upload-Img-Modal @upload-img-instance="getUploadImgModal"></Upload-Img-Modal>
+  <Product-Del-Modal
+    :current-product="currentProduct"
+    @product-delete-instance="getProductDelModal"
+    @refresh-products="refreshProducts"
+  ></Product-Del-Modal>
 </template>
 
 <script>
@@ -119,18 +89,26 @@ import axios from 'axios'
 import Loading from 'vue-loading-overlay'
 import 'vue-loading-overlay/dist/css/index.css'
 import Pagination from '@/components/PaginationView.vue'
+import ProductModal from '../../../components/ProductModal.vue'
+import ProductDelModal from '../../../components/ProductDelModal.vue'
+import UploadImgModal from '../../../components/UploadimgModal.vue'
 const { VITE_URL, VITE_PATH } = import.meta.env
 export default {
   data () {
     return {
       products: [],
+      productModal: null,
+      delProductModal: null,
+      uploadImgModal: null,
+      currentProduct: {
+        imagesUrl: []
+      },
+      currentPage: 1,
       pages: {},
       isNew: false,
       tempProduct: {
         imagesUrl: []
       },
-      // 判斷：是否為新增產品
-      //   isNew: false,
       pagination: {},
       isLoading: true,
       loader: 'bars'
@@ -138,7 +116,10 @@ export default {
   },
   components: {
     Pagination,
-    Loading
+    Loading,
+    ProductModal,
+    UploadImgModal,
+    ProductDelModal
   },
   methods: {
     checkAdmin () {
@@ -158,26 +139,50 @@ export default {
       this.isLoading = true
       const url = `${VITE_URL}/v2/api/${VITE_PATH}/admin/products?page=${page}`
       axios.get(url).then((res) => {
-        console.log(res)
         this.products = res.data.products
         this.pagination = res.data.pagination
         this.isLoading = false
       }).catch(() => {
-        // alert(err.response.data.message);
       })
+    },
+    openModal (modalName, item) {
+      if (modalName === 'productModal') {
+        this.currentProduct = { imagesUrl: [] }
+        this.isNew = true
+        this.productModal.show()
+      } else if (modalName === 'editModal') {
+        this.currentProduct = { ...item }
+        this.isNew = false
+        this.productModal.show()
+      } else if (modalName === 'delProductModal') {
+        this.currentProduct = item
+        this.delProductModal.show()
+      } else if (modalName === 'uploadImgModal') {
+        this.uploadImgModal.show()
+      }
+    },
+    getProductModal (productModel) {
+      this.productModal = productModel
+    },
+    getProductDeleteModal (productDeleteModel) {
+      this.delProduct = productDeleteModel
+    },
+    getUploadImgModal (uploadImgModel) {
+      this.uploadImgModal = uploadImgModel
+    },
+    refreshProducts () {
+      this.getData(this.currentPage)
     },
     updateProduct () {
       let url = `${VITE_URL}/v2/api/${VITE_PATH}/admin/product`
       let http = 'post'
 
       if (!this.isNew) {
-        url = `${VITE_URL}/api/${VITE_PATH}/v2/admin/product/${this.tempProduct.id}`
+        url = `${VITE_URL}/v2/api/${VITE_PATH}/admin/product/${this.tempProduct.id}`
         http = 'put'
       }
 
-      axios[http](url, { data: this.tempProduct }).then((response) => {
-        alert(response.data.message)
-        // productModal.hide();
+      axios[http](url, { data: this.tempProduct }).then((res) => {
         this.$refs.pModal.closeModal()
         this.getData()
         this.tempProduct = {}
@@ -194,8 +199,6 @@ export default {
             title: '確定刪除商品?',
             icon: 'warning',
             showCancelButton: true,
-            confirmButtonColor: '#7D6E4D',
-            cancelButtonColor: '#C6BBA2',
             confirmButtonText: '確定刪除',
             cancelButtonText: '取消'
           })
@@ -209,9 +212,6 @@ export default {
     }
   },
   mounted () {
-    // delProductModal = new bootstrap.Modal(document.getElementById('delProductModal'), {
-    //   keyboard: false
-    // })
     // 取出 Token
     const token = document.cookie.replace(/(?:(?:^|.*;\s*)hexToken\s*=\s*([^;]*).*$)|^.*$/, '$1')
     axios.defaults.headers.common.Authorization = token

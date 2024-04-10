@@ -18,20 +18,20 @@
       <div class="row py-4">
         <div class="col-md-8 col-sm-12">
           <!-- {{ cart }} -->
-          <div v-if="carts.length === 0" class="text-info d-flex align-items-center justify-content-center mb-2" style="height:200px; background-color: rgba(99, 99, 99, 0.90); z-index: 100;">
-            購物車沒有任何商品
+          <div v-if="carts.length === 0" class="text-info d-flex align-items-center justify-content-center mb-2"
+            style="height:200px; background-color: rgba(99, 99, 99, 0.90); z-index: 100;">
+            購物車沒有任何商品，趕快去看喜歡的房型吧!
             <router-link to="/products">
               <button type="submit" class="btn btn-info ms-2">去逛逛</button>
             </router-link>
           </div>
-          <div class="d-flex justify-content-between mb-4" v-if="carts.length>0">
+          <div class="d-flex justify-content-between mb-4" v-if="carts.length > 0">
             <router-link to="/products">
               <button type="submit" class="btn btn-info">繼續購買</button>
             </router-link>
             <button type="submit" class="btn btn-outline-info" @click="deleteAllCarts">清空購物車</button>
           </div>
-          <div class="border mb-3 bg-info text-primary" v-for="item in cart.carts"
-            :key="item.id">
+          <div class="border mb-3 bg-info text-primary" v-for="item in cart.carts" :key="item.id">
             <div class="row">
               <div class="col-md-2 col-sm-3">
                 <img :src="item.product.imageUrl" class="img-fluid">
@@ -67,24 +67,25 @@
             </div>
           </div>
           <div class="border bg-secondary p-4">
-                  <h2>訂單明細</h2>
-                  <hr>
-                  <div class="d-flex justify-content-between mb-4">
-                    <h5>小計</h5><span>NT$ {{ cart.final_total }}</span>
-                  </div>
-                  <div class="d-flex mb-4">
-                    <form class="input-group total-coupon-input">
-                      <input type="text" placeholder="輸入酷碰序號" class="form-control">
-                      <button type="submit" class="btn btn-primary">套用</button>
-                    </form>
-                  </div>
-                  <div class="d-flex justify-content-between mb-4">
-                    <h5>酷碰券折抵</h5><span>NT$ 0</span>
-                  </div>
-                  <div class="d-flex justify-content-between">
-                    <h5>共計</h5><span>NT$ {{ cart.final_total }}</span>
-                  </div>
-                </div>
+            <h2>訂單明細</h2>
+            <hr>
+            <div class="d-flex justify-content-between mb-4">
+              <!-- <h5>小計</h5><span>NT$ {{ formatPrice((cart.total).toFixed(0)) }}</span> -->
+            </div>
+            <div class="d-flex mb-4">
+              <form class="input-group total-coupon-input">
+                <input type="text" placeholder="輸入酷碰序號" class="form-control" aria-label="Recipient's username"
+                  aria-describedby="button-addon2" v-model="coupon">
+                <button type="submit" class="btn btn-primary" id="button-addon2" @click="useCoupon(coupon)">套用</button>
+              </form>
+            </div>
+            <div class="d-flex justify-content-between mb-4">
+              <h5>酷碰券折抵</h5><span>NT$ {{ formatPrice((cart.total - final_total ).toFixed(0)) }}</span>
+            </div>
+            <div class="d-flex justify-content-between">
+              <h5>共計</h5><span>NT$ {{ formatPrice((final_total).toFixed(0)) }}</span>
+            </div>
+          </div>
         </div>
         <div class="col-md-4 col-sm-12">
           <div class="row justify-content-center border py-4">
@@ -156,7 +157,8 @@ export default {
           address: ''
         },
         message: ''
-      }
+      },
+      coupon: ''
     }
   },
   methods: {
@@ -180,7 +182,6 @@ export default {
         })
     },
     updateCart (data) {
-      //   this.loadingStatus.loadingItem = data.id;
       const url = `${VITE_PATH}/v2/api/${VITE_PATH}/cart/${data.id}`
       const cart = {
         product_id: data.product_id,
@@ -188,28 +189,46 @@ export default {
       }
       axios.put(url, { data: cart }).then((response) => {
         alert(response.data.message)
-        // this.loadingStatus.loadingItem = ''
         this.getCart()
       }).catch((err) => {
         alert(err.response.data.message)
-        // this.loadingStatus.loadingItem = ''
       })
     },
     removeCartItem (id) {
       axios.delete(`${VITE_URL}/v2/api/${VITE_PATH}/cart/${id}`)
         .then((res) => {
-          alert(res.data.message)
-          //   this.loadingStatus.cartQtyLoading = ''
+          this.$Swal.fire({
+            title: '成功刪除商品',
+            icon: 'success',
+            position: 'top-end',
+            timer: 1000,
+            showConfirmButton: false
+          })
           this.getCarts()
+        })
+        .catch(err => {
+          this.$Swal.fire({
+            icon: 'error',
+            title: err.response.data.message
+          })
         })
     },
     deleteAllCarts () {
       const url = `${VITE_URL}/v2/api/${VITE_PATH}/carts`
       axios.delete(url).then((res) => {
-        alert(res.data.message)
+        this.$Swal.fire({
+          title: '成功刪除所有商品',
+          icon: 'success',
+          position: 'top-end',
+          timer: 1000,
+          showConfirmButton: false
+        })
         this.getCart()
-      }).catch((err) => {
-        alert(err.response.data.message)
+      }).catch(err => {
+        this.$Swal.fire({
+          icon: 'error',
+          title: err.response.data.message
+        })
       })
     },
     ...mapActions(cartStore, ['addToCart', 'getCart']),
@@ -234,6 +253,32 @@ export default {
           title: '訂單失敗'
         })
       })
+    },
+    useCoupon (coupon) {
+      const url = `${VITE_URL}/v2/api/${VITE_PATH}/coupon`
+      const item = {
+        data: {
+          code: coupon
+        }
+      }
+      axios.post(url, item).then(res => {
+        this.getCart()
+        this.$Swal.fire({
+          title: '套用成功',
+          icon: 'success',
+          position: 'top-end',
+          timer: 1000,
+          showConfirmButton: false
+        })
+      }).catch(() => {
+        this.$Swal.fire({
+          icon: 'error',
+          title: '套用失敗'
+        })
+      })
+    },
+    formatPrice (price) {
+      return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
     }
   },
   computed: {
@@ -252,6 +297,7 @@ export default {
   align-items: center;
   justify-content: center;
 }
+
 @media (max-width: 430px) {
   .row {
     display: flex;
@@ -261,8 +307,7 @@ export default {
 
 }
 
-@media (max-width: 768px) {
-}
+@media (max-width: 768px) {}
 
 @media (max-width: 992px) {}
 

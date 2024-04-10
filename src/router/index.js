@@ -68,7 +68,7 @@ const routes = [
         component: () => import('@/views/Admin/product/AdminAddProductView.vue')
       },
       {
-        path: 'product/edit/:id',
+        path: 'products',
         name: '後臺編輯商品',
         component: () => import('@/views/Admin/product/AdminEditProductView.vue')
       },
@@ -80,7 +80,7 @@ const routes = [
       {
         path: 'coupons',
         name: '後臺酷碰卷列表',
-        component: () => import('@/views/Admin/coupon/AdminCoupons.vue')
+        component: () => import('@/views/Admin/coupon/AdminCouponsView.vue')
       },
       {
         path: 'articles',

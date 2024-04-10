@@ -3,7 +3,7 @@
         <div class="container middle">
             <div class="row" style="width: 720px;">
                 <div class="col-md-6 col-sm-12 bg-primary middle">
-                    <img src="../assets/images/logo.jpg" alt="">
+                    <img src="../../public/images/logo.jpg" alt="">
                 </div>
                 <div class="col-md-6 col-sm-12 bg-info p-4 py-6">
                     <div class="border-bottom mb-4">
@@ -90,6 +90,17 @@ export default {
 </script>
 
 <style scoped>
+.full-screen-bg {
+  background-image: url('public/images/roomforest.jpg'); /* 设置背景图片的URL */
+  /* height: 919px; */
+  min-height: 100vh; /* 设置最小高度为视窗的高度 */
+  background-position: center;
+  background-size: cover;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 @media (max-width: 430px) {
   img {
     height: 300px;

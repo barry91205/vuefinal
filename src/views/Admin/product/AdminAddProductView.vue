@@ -72,7 +72,7 @@
             </div>
             <div class="col-6">
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-primary me-2" data-bs-dismiss="modal">
+                    <button type="button" class="btn btn-outline-primary me-2" data-bs-dismiss="modal" @click="returnPage">
                         取消
                     </button>
                     <button type="button" class="btn btn-primary" @click="addProduct">
@@ -104,15 +104,6 @@ export default {
     }
   },
   methods: {
-    // getData (page = 1) {
-    //   const url = `${VITE_URL}/v2/api/${VITE_PATH}/admin/products?page=${page}`
-    //   axios.get(url).then((res) => {
-    //     this.products = res.data.products
-    //     // this.pages = res.data.pagination
-    //   }).catch(() => {
-    //     // alert(err.response.data.message);
-    //   })
-    // },
     addProduct () {
       const url = `${VITE_URL}/api/${VITE_PATH}/admin/product`
 
@@ -129,6 +120,9 @@ export default {
         alert(err.response.data.message)
         this.$router.push('/admin/products')
       })
+    },
+    returnPage () {
+      this.$router.go(-1)
     }
   }
 }

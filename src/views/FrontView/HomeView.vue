@@ -1,6 +1,6 @@
 <template>
   <!-- banner -->
-  <div class="banner mt-5" style="background-image: url('src/assets/images/bannercat.jpg');">
+  <div class="banner mt-5" style="background-image: url('public/images/bannercat.jpg'); background-size: cover;">
     <div class="col-md-4 text-center">
       <h2 class="text-white">以喵星人視角，再次探索這顆美麗且再熟悉不過的藍色星球</h2>
       <router-link to="/products">
@@ -10,7 +10,7 @@
   </div>
   <!-- 關於喵星球 -->
   <div class="bg-primary">
-    <div class="container text-info pt-6 pb-6">
+    <div class="container text-info py-6 pb-6">
       <div class="row py-md-6 py-sm-0">
         <div class="col-md-6" data-aos="fade-left">
           <div class="col-md-4 my-6 me-2">
@@ -75,7 +75,14 @@
       </div>
     </div>
   </div>
-  <div style="background-image: url('src/assets/images/compassion.jpg');">
+  <!-- <div class="bg-primary row p-4"><h2 class="text-info">熱門房型推薦</h2></div> -->
+  <!-- <div class="row recommend">
+    <router-link ></router-link>
+        <div class="col-md-4 col-sm-12 reco1 p-4"><h2 class="text-info">經典房。</h2></div>
+        <div class="col-md-4 col-sm-12 reco2 p-4"><h2 class="text-info">森林房。</h2></div>
+        <div class="col-md-4 col-sm-12 reco3 p-4"><h2 class="text-info">樹木房。</h2></div>
+      </div> -->
+  <div style="background-image: url('public/images/compassion.jpg');">
     <div class="container text-info py-6">
       <div class="row py-md-6 py-sm-0">
         <div class="col-md-6">
@@ -193,9 +200,36 @@ export default {
 </script>
 
 <style scoped>
-@media (max-width: 375px) {
+
+/* .recommend {
+  height: 800px;
+  position: relative;
+}
+
+.recommend :hover {
+  filter: brightness(70%);
+}
+.reco1 {
+  background-image: url('public/images/floor.jpg');
+  background-size: cover;
+  background-position: center;
+  transition: filter 0.3s ease-in-out;
+}
+.reco2 {
+  background-image: url('public/images/roomforest.jpg');
+  background-size: cover;
+  background-position: center;
+}
+.reco3 {
+  background-image: url('public/images/tree.jpg');
+  background-size: cover;
+  background-position: center;
+} */
+
+@media (max-width: 430px) {
   .banner {
     height: 200px;
+    /* width: 100%; */
   }
  }
 

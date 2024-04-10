@@ -9,7 +9,7 @@
   <footer class="footer Newsletter">
     <div class="container p-6">
       <div class="row">
-        <div class="col-6 text-start">
+        <div class="col-md-6 col-sm-12 text-start">
           <h2 class="text-info mb-4">歡迎訂閱電子報</h2>
           <form class="input-group total-coupon-input">
             <input type="text" placeholder="請輸入信箱" class="form-control">
@@ -19,10 +19,11 @@
       </div>
     </div>
     <div class="bg-primary text-center p-4 text-info">
-      <img src="../assets/images/logo.jpg" alt="">
+      <img src="../../public/images/logo.jpg" alt="">
       <p>106 台北市大安區信義路三段100號10號5樓</p>
       <p>02-2785-8877</p>
       <p>&copy; 2024 喵星球_貓咪旅館. All Rights Reserved.</p>
+      <h6>此網站為個人作品展示，非商業使用。</h6>
     </div>
   </footer>
   <button class="cat-button"  @click="scrollToTop">
@@ -40,7 +41,7 @@ export default {
   },
   methods: {
     handleScroll () {
-      if (window.scrollY > 20) {
+      if (window.scrollY > 50) {
         this.showButton = true
       } else {
         this.showButton = false
@@ -53,7 +54,7 @@ export default {
       })
     }
   },
-  created () {
+  mounted () {
     // this.$router.push('/home')
   }
 }
@@ -61,7 +62,7 @@ export default {
 
 <style>
 .Newsletter {
-  background-image: url('src/assets/images/roomforest.jpg');
+  background-image: url('public/images/roomforest.jpg');
   background-size: cover;
   background-position: center;
   /* height: 300px; */
@@ -88,7 +89,6 @@ export default {
         .cat-icon {
             width: 30px;
             height: 30px;
-            /* background-image: url('https://via.placeholder.com/30'); */
             background-size: cover;
         }
 </style>

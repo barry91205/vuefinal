@@ -1,6 +1,6 @@
 <template>
   <!-- banner -->
-  <div class="aboutbanner mt-5" style="background-image: url('src/assets/images/aboutbanner.jpg');">
+  <div class="aboutbanner mt-5 p-4" style="background-image: url('public/images/aboutbanner.jpg');">
     <div class="text-center transparent-box">
       <h2 class="text-white">貓主人最安心託付的
         毛貓孩旅館。</h2>
@@ -25,7 +25,7 @@
           </div>
         </div>
         <div class="col-md-6" data-aos="flip-up">
-          <img class="about-image" src="../../assets/images/catmanager.jpg" alt="" height="470px" width="636">
+          <img class="about-image" src="../../../public/images/catmanager.jpg" alt="" height="470px" width="100%">
         </div>
       </div>
     </div>
@@ -51,7 +51,7 @@
           </div>
         </div>
         <div class="col-md-6" data-aos="flip-right">
-          <img src="../../assets/images/tree.jpg" alt="" height="500px" width="300">
+          <img src="../../../public/images/tree.jpg" alt="" height="500px" width="300">
         </div>
       </div>
     </div>
@@ -60,7 +60,7 @@
     <div class="container text-info py-6">
       <div class="row py-md-6 py-sm-0">
         <div class="col-md-6" data-aos="flip-right">
-          <img src="../../assets/images/floor.jpg" alt="" height="500px" width="300">
+          <img src="../../../public/images/floor.jpg" alt="" height="500px" width="300">
         </div>
         <div class="col-md-6" data-aos="fade-right">
           <div class="col-md-5 my-6 me-2">
@@ -102,7 +102,7 @@
           </div>
         </div>
         <div class="col-md-6" data-aos="flip-right">
-          <img src="../../assets/images/airconditioner.jpg" alt="" height="500px" width="300">
+          <img src="../../../public/images/airconditioner.jpg" alt="" height="500px" width="300">
         </div>
       </div>
     </div>
@@ -111,7 +111,7 @@
     <div class="container text-info py-6">
       <div class="row py-6">
         <div class="col-md-6" data-aos="flip-right">
-          <img src="../../assets/images/water.jpg" alt="" height="500px" width="300">
+          <img src="../../../public/images/water.jpg" alt="" height="500px" width="300">
         </div>
         <div class="col-md-6" data-aos="fade-right">
           <div class="col-md-4 my-6 me-2">
@@ -164,27 +164,27 @@
      data-aos-duration="1500">
         <div class="icons">
           <div class="icon-box text-center">
-            <img class="icon" src="../../assets/images/caticon.png" alt="" height="50px" width="50px">
+            <img class="icon" src="../../../public/images/caticon.png" alt="" height="50px" width="50px">
             <p>刷牙</p>
           </div>
           <div class="icon-box text-center">
-            <img class="icon" src="../../assets/images/caticon.png" alt="" height="50px" width="50px">
+            <img class="icon" src="../../../public/images/caticon.png" alt="" height="50px" width="50px">
             <p>餵藥</p>
           </div>
           <div class="icon-box text-center">
-            <img class="icon" src="../../assets/images/caticon.png" alt="" height="50px" width="50px">
+            <img class="icon" src="../../../public/images/caticon.png" alt="" height="50px" width="50px">
             <p>擦藥</p>
           </div>
           <div class="icon-box text-center">
-            <img class="icon" src="../../assets/images/caticon.png" alt="" height="50px" width="50px">
+            <img class="icon" src="../../../public/images/caticon.png" alt="" height="50px" width="50px">
             <p>點藥</p>
           </div>
           <div class="icon-box text-center">
-            <img class="icon" src="../../assets/images/caticon.png" alt="" height="50px" width="50px">
+            <img class="icon" src="../../../public/images/caticon.png" alt="" height="50px" width="50px">
             <p>剪指甲</p>
           </div>
           <div class="icon-box text-center">
-            <img class="icon" src="../../assets/images/caticon.png" alt="" height="50px" width="50px">
+            <img class="icon" src="../../../public/images/caticon.png" alt="" height="50px" width="50px">
             <p>專人陪伴</p>
           </div>
         </div>
@@ -213,7 +213,7 @@ export default {
 }
 </script>
 <style>
-@media (max-width: 375px) {
+@media (max-width: 430px) {
   .aboutbanner {
     height: 200px;
     padding: 10px;
@@ -221,8 +221,13 @@ export default {
   img {
     width: 100%;
   }
+  .icons {
+    display: flex;
+    flex-direction: row;
+  }
   .icon {
     width: 40px;
+    height: 40px;
   }
  }
 

@@ -1,15 +1,17 @@
 <template>
   <!-- banner -->
-  <div class="aboutbanner mt-5" style="background-image: url('src/assets/images/roomforest.jpg'); height: 200px;">
+  <div class="aboutbanner mt-5" style="background-image: url('public/images/roomforest.jpg'); height: 200px;">
     <h2 class="text-info">貓咪旅館。</h2>
   </div>
   <div class="bg-primary py-4">
     <div class="container text-info py-6 vl-parent">
       <Loading v-model:active="isLoading" :can-cancel="false" :is-full-page="fullPage" :loader="loader"></Loading>
       <div class="row py-md-6 py-sm-0">
-        <div class="col-md-3 fixed mb-6">
-          <div class="card text-center bg-secondary mb-2">
-            <div class="card-header py-3">
+        <div class="col-md-3 mb-6">
+          <!-- 固定選單且不會離開畫面 -->
+          <div class="position-sticky" style="top: 5rem;">
+            <div class="card text-center bg-secondary mb-2">
+            <div class="card-header py-3 text-info">
               房型類別
             </div>
             <ul class="list-group list-group-flush">
@@ -20,6 +22,7 @@
                 <RouterLink class="py-2 nav-link" :to="`/products?category=${item}`">{{ item }}</RouterLink>
               </li>
             </ul>
+          </div>
           </div>
         </div>
         <div class="col-md-9 col-sm-12">
@@ -96,7 +99,8 @@ export default {
       fullPage: true,
       loader: 'bars',
       Swal,
-      pagination: {}
+      pagination: {},
+      currentCategory: {}
     }
   },
   components: {
@@ -185,7 +189,6 @@ export default {
 .image-container:hover img {
   transform: scale(1.3);
 }
-
 @media (max-width: 430px) {
   .card {
     width: 100%;

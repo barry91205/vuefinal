@@ -20,49 +20,48 @@
           <h2>訂單人資訊</h2>
           <hr>
           <form action="" @submit.prevent="payOrder">
-          <table class="table">
-            <thead>
-            </thead>
-            <tbody>
-              <tr>
-                <th scope="row">姓名</th>
-                <td>{{ order.user.name }}</td>
-                <!-- <td>{{ user.name }}</td> -->
-              </tr>
-              <tr>
-                <th scope="row">電話</th>
-                <td>{{ order.user.tel }}</td>
-              </tr>
-              <tr>
-                <th scope="row">Email</th>
-                <td colspan="2">{{ order.user.email }}</td>
-              </tr>
-              <tr>
-                <th scope="row">地址</th>
-                <td>{{ order.user.address }}</td>
-              </tr>
-              <tr>
-                <th scope="row">匯款方式</th>
-                <td>信用卡</td>
-              </tr>
-              <tr>
-                <th scope="row">匯款狀態</th>
-                <td class="text-danger">尚未付款</td>
-              </tr>
-            </tbody>
-          </table>
-        </form>
+            <table class="table">
+              <thead>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">姓名</th>
+                  <td>{{ order.user.name }}</td>
+                </tr>
+                <tr>
+                  <th scope="row">電話</th>
+                  <td>{{ order.user.tel }}</td>
+                </tr>
+                <tr>
+                  <th scope="row">Email</th>
+                  <td colspan="2">{{ order.user.email }}</td>
+                </tr>
+                <tr>
+                  <th scope="row">地址</th>
+                  <td>{{ order.user.address }}</td>
+                </tr>
+                <tr>
+                  <th scope="row">匯款方式</th>
+                  <td>信用卡</td>
+                </tr>
+                <tr>
+                  <th scope="row">匯款狀態</th>
+                  <td class="text-danger">尚未付款</td>
+                </tr>
+              </tbody>
+            </table>
+          </form>
         </div>
         <div class="col-md-6 col-sm-12 border-top bg-secondary p-4" style="height: 100%;">
           <!-- v-for="item in order" :key="item" -->
           <h2>訂單明細</h2>
           <hr>
           <div class="d-flex justify-content-between mb-4">
-                    <h5>訂單編號</h5><span>{{ order.id }}</span>
-                  </div>
-          <div class="d-flex justify-content-between mb-4">
-            <h5>小計</h5><span>NT$ {{ order.total }}</span>
+            <h5>訂單編號</h5><span>{{ order.id }}</span>
           </div>
+          <!-- <div class="d-flex justify-content-between mb-4">
+            <h5>小計</h5><span>NT$ {{ order.total }}</span>
+          </div> -->
           <div class="d-flex justify-content-between mb-4">
             <h5>訂購日期</h5><span>{{ order.create_at }}</span>
           </div>
@@ -70,7 +69,6 @@
             <div class="d-flex justify-content-between mb-4">
               <p>{{ item.product.title }}<span> x {{ item.qty }}</span></p>NT$ {{ item.product.price }}
             </div>
-
           </div>
           <div class="d-flex justify-content-between">
             <h5>共計</h5><span>NT$ {{ order.total }}</span>
@@ -124,6 +122,9 @@ export default {
           title: err.response.data.message
         })
       })
+    },
+    formatPrice (price) {
+      return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
     }
   },
   created () {
@@ -136,6 +137,4 @@ export default {
 }
 </script>
 
-<style>
-
-</style>
+<style></style>

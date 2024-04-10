@@ -12,7 +12,7 @@
     <li class="page-item"
          v-for="page in pagination.total_pages" :key="page"
         :class="{active:page === pagination.current_page}">
-      <a class="page-link bg-secondary" href="#" @click.prevent="updatePage(page)">{{page}}</a>
+      <a class="page-link" href="#" @click.prevent="updatePage(page)">{{page}}</a>
    </li>
    <!-- 下一頁 -->
     <li class="page-item"

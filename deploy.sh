@@ -12,7 +12,7 @@ cd dist
 # 部署到自定義網域
 # echo 'www.example.com' > CNAME
 
-git init
+# git init
 git checkout -B main
 git add -A
 git commit -m 'deploy'

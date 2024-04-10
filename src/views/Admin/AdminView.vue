@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-3 bg-primary p-4 sidebarMenu">
                 <router-link to="/home">
-                    <img src="../../assets/images/logo.jpg" alt="" width="200px">
+                    <img src="../../../public/images/logo.jpg" alt="" width="200px">
                 </router-link>
                 <router-link to="/admin/home">
                     <button type="button" class="btn btn-primary w-100 mb-2">後臺首頁</button>

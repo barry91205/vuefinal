@@ -1,7 +1,10 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-primary bg-primary fixed-top shadow-sm opacity-80">
+  <nav class="navbar navbar-expand-lg navbar-light bg-primary fixed-top shadow-sm opacity-80">
     <div class="container">
-      <RouterLink class="navbar-brand text-info" to="/home">喵星球</RouterLink>
+      <RouterLink class="navbar-brand text-info" to="/home">
+        <!-- <img class="logo" src="../../public/images/logo.jpg" alt=""> -->
+        喵星球
+      </RouterLink>
       <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse"
         data-bs-target="#navbarSupportedContent" aria-controls="navbarNavAltMarkup" aria-expanded="false"
         aria-label="Toggle navigation" @click="toggleMenu">
@@ -64,6 +67,10 @@ export default {
 </script>
 
 <style>
+.logo {
+  width: 50px;
+  height: 50px;
+}
 @media (min-width: 375px) {
   .nav-link {
     text-align: center;

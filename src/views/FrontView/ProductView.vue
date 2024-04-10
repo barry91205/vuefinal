@@ -44,12 +44,6 @@
       </div>
     </div>
   </div>
-  <div class="bg-primary row p-4"><h2 class="text-info">熱門房型推薦</h2></div>
-  <div class="row recommend">
-        <div class="col reco1 p-4"><h2 class="text-info">經典房。</h2></div>
-        <div class="col reco2 p-4"><h2 class="text-info">森林房。</h2></div>
-        <div class="col reco3 p-4"><h2 class="text-info">樹木房。</h2></div>
-      </div>
 </template>
 
 <script>
@@ -105,6 +99,12 @@ export default {
 </script>
 
 <style>
+
+/* 点击按钮时的样式 */
+.btn:active {
+  transform: translateY(2px);
+  /* 往下移动2像素 */
+}
 .opacity:hover {
   opacity: 0.6;
   /* 当鼠标悬停在按钮上时，设置按钮的透明度 */
@@ -114,48 +114,21 @@ export default {
   color: #fcfcfc;
 }
 
-/* 点击按钮时的样式 */
-.btn:active {
-  transform: translateY(2px);
-  /* 往下移动2像素 */
-}
-.recommend {
-  height: 800px;
-  position: relative;
-  /* display: inline-block; */
-}
-
-.recommend .col:hover {
-  filter: brightness(70%);
-}
-.reco1 {
-  background-image: url('src/assets/images/floor.jpg');
-  background-size: cover;
-  background-position: center;
-  transition: filter 0.3s ease-in-out;
-}
-.reco2 {
-  background-image: url('src/assets/images/roomforest.jpg');
-  background-size: cover;
-  background-position: center;
-}
-.reco3 {
-  background-image: url('src/assets/images/tree.jpg');
-  background-size: cover;
-  background-position: center;
-}
-
 @media (max-width: 430px) {
   img {
     width: 100%;
   }
+  /* .recommend {
+    display: flex;
+    flex-direction: column;
+    width: 430px;
+  }
+  .row {
+    width: 430px;
+  } */
 }
 
 @media (max-width: 768px) {
-  /* .row {
-    display: flex;
-    flex-direction: row
-  } */
 }
 
 @media (max-width: 992px) {}

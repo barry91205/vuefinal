@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <h2 class="mb-4">編輯房型</h2>
+        <h2 class="mb-4">編輯房型 {{ tempProduct.title }}</h2>
         <hr>
         <div class="row">
             <div class="col-6">
@@ -134,6 +134,9 @@ export default {
     tempProduct () {
       this.editProduct = this.tempProduct
     }
+  },
+  created () {
+    this.getData()
   },
   mounted () {
     this.editProduct = this.tempProduct

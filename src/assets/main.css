@@ -154,17 +154,6 @@ h2,h5 {
     color: #ff2200;
 }
 
-.full-screen-bg {
-  background-image: url('src/assets/images/roomforest.jpg'); /* 设置背景图片的URL */
-  /* height: 919px; */
-  min-height: 100vh; /* 设置最小高度为视窗的高度 */
-  background-position: center;
-  background-size: cover;
-  overflow: hidden;
-  display: flex;
-  align-items: center; 
-  justify-content: center; 
-}
 
 .middle {
   display: flex;
