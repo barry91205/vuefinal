@@ -1,0 +1,1 @@
+.btn:active{transform:translateY(2px)}.opacity:hover{opacity:.6;transition:opacity .8s ease,background .3s ease;background:linear-gradient(360deg,#7d6e4d,#fcfcfc);color:#fcfcfc}@media (max-width: 430px){img{width:100%}}
