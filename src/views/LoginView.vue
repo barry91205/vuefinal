@@ -91,7 +91,7 @@ export default {
 
 <style scoped>
 .full-screen-bg {
-  background-image: url('./public/images/roomforest.jpg'); /* 设置背景图片的URL */
+  background-image: url('images/roomforest.jpg'); /* 设置背景图片的URL */
   /* height: 919px; */
   min-height: 100vh; /* 设置最小高度为视窗的高度 */
   background-position: center;

@@ -1,6 +1,6 @@
 <template>
   <!-- banner -->
-  <div class="aboutbanner mt-5" style="background-image: url('./public/images/roomforest.jpg'); height: 200px;">
+  <div class="aboutbanner mt-5" style="background-image: url('images/roomforest.jpg'); height: 200px;">
     <h2 class="text-info">貓咪旅館。</h2>
   </div>
   <div class="bg-primary py-4">

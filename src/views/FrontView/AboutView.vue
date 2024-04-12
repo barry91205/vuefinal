@@ -1,6 +1,6 @@
 <template>
   <!-- banner -->
-  <div class="aboutbanner mt-5 p-4" style="background-image: url('./public/images/aboutbanner.jpg');">
+  <div class="aboutbanner mt-5 p-4" style="background-image: url('images/aboutbanner.jpg');">
     <div class="text-center transparent-box">
       <h2 class="text-white">貓主人最安心託付的
         毛貓孩旅館。</h2>
