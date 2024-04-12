@@ -193,7 +193,6 @@ export default {
     tempCoupons: {
       handler () {
         this.localTempCoupons = this.tempCoupons
-        console.log(this.localTempCoupons.due_date)
         // const getTime = new Date(this.localTempCoupons.due_date * 1000).toISOString().split('T');
         // [this.due_date] = getTime;
         // ESLint 的慣例中括號,這是一種陣列解構賦值的方法,表示將 getTime 陣列的第一個元素賦值給 this.due_date

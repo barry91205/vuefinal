@@ -31,7 +31,7 @@
             </router-link>
             <button type="submit" class="btn btn-outline-info" @click="deleteAllCarts">清空購物車</button>
           </div>
-          <div class="border mb-3 bg-info text-primary" v-for="item in cart.carts" :key="item.id">
+          <!-- <div class="border mb-3 bg-info text-primary" v-for="item in cart.carts" :key="item.id">
             <div class="row">
               <div class="col-md-2 col-sm-3">
                 <img :src="item.product.imageUrl" class="img-fluid">
@@ -41,7 +41,6 @@
                   <div class="col" style="width: 200px;">
                     <h5>{{ item.product.title }}</h5>
                   </div>
-                  <!-- <div class="input-group-sm"> -->
                   <div class="col btn-group">
                     <button type="button" class="btn btn-secondary" @click="item.qty--; changeCartQty(item, item.qty)"
                       :disabled="item.qty === 1">-</button>
@@ -49,7 +48,7 @@
                       @change="changeCartQty(item, item.qty)" :disabled="item.qty === 1" readonly>
                     <button type="button" class="btn btn-secondary" @click="item.qty++">+</button>
                   </div>
-                  <!-- </div> -->
+                  </div>
                   <div class="col" style="width: 200px;">
                     <h5>NT${{ item.product.price }}</h5>
                   </div>
@@ -65,6 +64,49 @@
                 </div>
               </div>
             </div>
+          </div> -->
+          <!-- 購物車 -->
+          <div class="table-container">
+            <table class="table align-middle">
+              <thead class="table-dark">
+                <tr>
+                  <th>圖片</th>
+                  <th>房名</th>
+                  <th>數量</th>
+                  <th>價格</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody class="table-primary">
+                <tr v-for="item in cart.carts" :key="item.id">
+                  <td><img :src="item.product.imageUrl" style="width: 80px; height: 100px;"></td>
+                  <td>
+                    <h5>{{ item.product.title }}</h5>
+                  </td>
+                  <td>
+                    <div class="btn-group input-group-sm">
+                      <button type="button" class="btn btn-secondary" @click="item.qty--; changeCartQty(item, item.qty)"
+                        :disabled="item.qty === 1">-</button>
+                      <input min="1" type="number" class="productNumber" v-model.number="item.qty"
+                        @change="changeCartQty(item, item.qty)" :disabled="item.qty === 1" readonly>
+                      <button type="button" class="btn btn-secondary" @click="item.qty++">+</button>
+                    </div>
+                  </td>
+                  <td style="width: 20%;">
+                    <h5>NT${{ item.product.price }}</h5>
+                  </td>
+                  <td style="width: 10%;" class="text-end">
+                    <button type="button" class="btn btn-outline-danger" @click="removeCartItem(item.id)">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-trash-fill" viewBox="0 0 16 16">
+                        <path
+                          d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0" />
+                      </svg>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
           <div class="border bg-secondary p-4">
             <h2>訂單明細</h2>
@@ -72,15 +114,18 @@
             <div class="d-flex justify-content-between mb-4">
               <!-- <h5>小計</h5><span>NT$ {{ formatPrice((cart.total).toFixed(0)) }}</span> -->
             </div>
-            <div class="d-flex mb-4">
+            <div class="d-flex mb-2">
               <form class="input-group total-coupon-input">
                 <input type="text" placeholder="輸入酷碰序號" class="form-control" aria-label="Recipient's username"
                   aria-describedby="button-addon2" v-model="coupon">
                 <button type="submit" class="btn btn-primary" id="button-addon2" @click="useCoupon(coupon)">套用</button>
               </form>
             </div>
+            <div class="text-dark mb-2" v-if="cart.total - final_total">
+              已套用優惠券
+            </div>
             <div class="d-flex justify-content-between mb-4">
-              <h5>酷碰券折抵</h5><span>NT$ {{ formatPrice((cart.total - final_total ).toFixed(0)) }}</span>
+              <h5>酷碰券折抵</h5><span>NT$ {{ formatPrice((cart.total - final_total).toFixed(0)) }}</span>
             </div>
             <div class="d-flex justify-content-between">
               <h5>共計</h5><span>NT$ {{ formatPrice((final_total).toFixed(0)) }}</span>
@@ -88,7 +133,7 @@
           </div>
         </div>
         <div class="col-md-4 col-sm-12">
-          <div class="row justify-content-center border py-4">
+          <div class="row justify-content-center py-4">
             <v-form ref="form" v-slot="{ errors }" @submit="createOrder">
               <div class="mb-3">
                 <label for="email" class="form-label">Email<span class="marker">*</span></label>
@@ -194,24 +239,33 @@ export default {
         alert(err.response.data.message)
       })
     },
-    removeCartItem (id) {
-      axios.delete(`${VITE_URL}/v2/api/${VITE_PATH}/cart/${id}`)
-        .then((res) => {
-          this.$Swal.fire({
-            title: '成功刪除商品',
-            icon: 'success',
-            position: 'top-end',
-            timer: 1000,
-            showConfirmButton: false
-          })
-          this.getCarts()
-        })
-        .catch(err => {
-          this.$Swal.fire({
-            icon: 'error',
-            title: err.response.data.message
-          })
-        })
+    removeCartItem (title, id) {
+      this.$Swal.fire({
+        title: '確定刪除此商品?',
+        icon: 'warning',
+        showConfirmButton: true,
+        confirmButtonText: '確定',
+        cancelButtonText: '取消'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          axios.delete(`${VITE_URL}/v2/api/${VITE_PATH}/cart/${id}`)
+            .then((res) => {
+              this.$Swal.fire({
+                title: '已刪除',
+                icon: 'success',
+                timer: 1000,
+                showConfirmButton: false
+              })
+              this.getCarts()
+            })
+            .catch(err => {
+              this.$Swal.fire({
+                icon: 'error',
+                title: err.response.data.message
+              })
+            })
+        }
+      })
     },
     deleteAllCarts () {
       const url = `${VITE_URL}/v2/api/${VITE_PATH}/carts`
@@ -298,14 +352,19 @@ export default {
   justify-content: center;
 }
 
-@media (max-width: 430px) {
-  .row {
-    display: flex;
-    /* flex-direction: column; */
-    border: none;
-  }
-
+.table-container {
+  overflow-x: auto;
+  /* 水平捲動條 */
+  max-width: 100%;
+  /* 最大寬度 */
+  /* margin-bottom: 20px; 為了避免捲動條被切掉 */
 }
+
+table {
+  width: 100%;
+}
+
+@media (max-width: 435px) {}
 
 @media (max-width: 768px) {}
 

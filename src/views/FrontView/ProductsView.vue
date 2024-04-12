@@ -1,6 +1,6 @@
 <template>
   <!-- banner -->
-  <div class="aboutbanner mt-5" style="background-image: url('public/images/roomforest.jpg'); height: 200px;">
+  <div class="aboutbanner mt-5" style="background-image: url('./public/images/roomforest.jpg'); height: 200px;">
     <h2 class="text-info">貓咪旅館。</h2>
   </div>
   <div class="bg-primary py-4">
@@ -38,14 +38,14 @@
               </div>
               <div class="col-9 position-relative">
                 <div class="row mb-4">
-                  <div class="col-md-8 col-sm-5">
+                  <div class="col-md-8 col-sm-5 title">
                     <div class="py-4">
                       <h5 class="card-title border-bottom mb-2">{{ product.title }}</h5>
                       <p class="card-text mb-4">{{ product.unit }}</p>
                       <span class="badge bg-secondary">{{ product.category }}</span>
                     </div>
                   </div>
-                  <div class="col-md-4 p-4 text-end position-relative col-sm-7 p-sm-3">
+                  <div class="price col-md-4 p-md-3 text-end position-relative col-sm-6 p-sm-2">
                     <h3 v-if="product.origin_price === product.price">NT$ {{ product.price }}/貓</h3>
                     <div v-else>
                       <h3 class="text-secondary">NT$ {{ product.price }}/貓</h3>
@@ -61,7 +61,7 @@
                   <div class="col-4">
                     <div class="btn-group position-absolute" role="group" aria-label="Basic outlined example"
                       style="bottom: 10px; right: 25px;">
-                      <button type="button" class="btn btn-outline-primary">
+                      <button type="button" class="btn btn-outline-primary btn-sm">
                         <RouterLink :to="`/product/${product.id}`" class="nav-link">查看更多</RouterLink>
                       </button>
                       <button type="button" class="btn btn-primary" @click.prevent="addToCart(product.id)">
@@ -189,6 +189,15 @@ export default {
 .image-container:hover img {
   transform: scale(1.3);
 }
+@media (max-width: 360px) {
+  .title {
+    width: 100px;
+  }
+  .price {
+    width: 150px;
+    padding: 12px;
+  }
+}
 @media (max-width: 430px) {
   .card {
     width: 100%;
@@ -198,7 +207,8 @@ export default {
     display: none;
   }
   img {
-    height: 200px;
+    width: 100%;
+    height: 129px;
     background-position: center;
   background-size: cover;
   overflow: hidden;
@@ -208,7 +218,9 @@ export default {
   }
  }
 
-@media (max-width: 768px) {  }
+@media (max-width: 768px) { .content , .card-text {
+    display: none;
+  } }
 
 @media (max-width: 992px) {  }
 

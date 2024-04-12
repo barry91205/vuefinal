@@ -1,6 +1,6 @@
 <template>
   <!-- banner -->
-  <div class="banner mt-5" style="background-image: url('public/images/bannercat.jpg'); background-size: cover;">
+  <div class="banner mt-5" style="background-image: url('./public/images/bannercat.jpg'); background-size: cover;">
     <div class="col-md-4 text-center">
       <h2 class="text-white">以喵星人視角，再次探索這顆美麗且再熟悉不過的藍色星球</h2>
       <router-link to="/products">
@@ -82,7 +82,7 @@
         <div class="col-md-4 col-sm-12 reco2 p-4"><h2 class="text-info">森林房。</h2></div>
         <div class="col-md-4 col-sm-12 reco3 p-4"><h2 class="text-info">樹木房。</h2></div>
       </div> -->
-  <div style="background-image: url('public/images/compassion.jpg');">
+  <div style="background-image: url('./public/images/compassion.jpg');">
     <div class="container text-info py-6">
       <div class="row py-md-6 py-sm-0">
         <div class="col-md-6">
@@ -229,7 +229,7 @@ export default {
 @media (max-width: 430px) {
   .banner {
     height: 200px;
-    /* width: 100%; */
+    width: 100%;
   }
  }
 

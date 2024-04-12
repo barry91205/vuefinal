@@ -96,7 +96,7 @@
                         type="text"
                         class="form-control form-control"
                         id="tag"
-                        v-model="tempArticle.tag[key]"
+                        v-model="tempArticle.tag"
                         placeholder="請輸入標籤"
                       />
                       <button

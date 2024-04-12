@@ -14,6 +14,7 @@
         <ul class="navbar-nav">
           <RouterLink to="/about" class="nav-link text-info">關於喵星球</RouterLink>
           <RouterLink to="/products" class="nav-link text-info">房型列表</RouterLink>
+          <RouterLink to="/articles" class="nav-link text-info">最新消息</RouterLink>
           <RouterLink to="/q&a" class="nav-link text-info">Q&A</RouterLink>
         </ul>
         <div class="navbar-nav ms-auto">
@@ -37,9 +38,6 @@
               <span class="visually-hidden">unread messages</span>
             </span>
           </RouterLink>
-          <!-- <RouterLink to="/cart" class="nav-link">購物車</RouterLink>
-        <RouterLink to="/admin" class="nav-link">回後台</RouterLink> -->
-          <!-- <RouterLink to="/login" class="nav-link">登入</RouterLink> -->
         </div>
       </div>
     </div>

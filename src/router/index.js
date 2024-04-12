@@ -40,6 +40,16 @@ const routes = [
       {
         path: '/orderfinish',
         component: () => import('@/views/FrontView/OrderFinishView.vue')
+      },
+      {
+        path: 'articles',
+        name: '文章列表',
+        component: () => import('@/views/FrontView/ArticlesView.vue')
+      },
+      {
+        path: 'article/:id',
+        name: '文章詳細頁面',
+        component: () => import('@/views/FrontView/ArticleView.vue')
       }
     ]
   },

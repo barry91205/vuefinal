@@ -62,7 +62,7 @@ export default {
 
 <style>
 .Newsletter {
-  background-image: url('public/images/roomforest.jpg');
+  background-image: url('./public/images/roomforest.jpg');
   background-size: cover;
   background-position: center;
   /* height: 300px; */
