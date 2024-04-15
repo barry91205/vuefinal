@@ -1,6 +1,7 @@
 <template>
   <div class="bg-primary">
     <div class="container text-info py-6">
+      <Loading v-model:active="isLoading" :can-cancel="false" :is-full-page="fullPage" :loader="loader"></Loading>
       <div class="row pb-6 pb-sm-0">
         <div class="col-md-6">
           <div class="col-md-4 my-6 me-2">
@@ -43,6 +44,8 @@
 </template>
 
 <script>
+import Loading from 'vue-loading-overlay'
+import 'vue-loading-overlay/dist/css/index.css'
 import 'bootstrap/dist/js/bootstrap.bundle.min.js'
 import AOS from 'aos'
 import 'aos/dist/aos.css'
@@ -54,6 +57,9 @@ export default {
       pagination: {},
       isLoading: true
     }
+  },
+  components: {
+    Loading
   },
   methods: {
     getArticles (page = 1) {

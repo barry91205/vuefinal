@@ -1,4 +1,5 @@
 <template>
+  <Loading v-model:active="isLoading" :can-cancel="false" :is-full-page="fullPage" :loader="loader"></Loading>
   <!-- banner -->
   <div class="aboutbanner mt-5 p-4" style="background-image: url('images/aboutbanner.jpg');">
     <div class="text-center transparent-box">
@@ -194,6 +195,8 @@
 </template>
 
 <script>
+import Loading from 'vue-loading-overlay'
+import 'vue-loading-overlay/dist/css/index.css'
 import AOS from 'aos'
 import 'aos/dist/aos.css'
 export default {
@@ -209,6 +212,9 @@ export default {
       anchorPlacement: 'top-bottom' // defines which position of the element regarding to window should trigger the animation
 
     })
+  },
+  components: {
+    Loading
   }
 }
 </script>

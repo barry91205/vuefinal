@@ -1,6 +1,7 @@
 <template>
   <div class="bg-primary mt-5">
     <div class="container text-info">
+      <Loading v-model:active="isLoading" :can-cancel="false" :is-full-page="fullPage" :loader="loader"></Loading>
       <div class="row py-6">
         <div class="product-img col-md-6 d-flex justify-content-end col-sm-12">
           <div></div>
@@ -49,7 +50,8 @@
 <script>
 import axios from 'axios'
 import { mapActions } from 'pinia'
-
+import Loading from 'vue-loading-overlay'
+import 'vue-loading-overlay/dist/css/index.css'
 import cartStore from '@/stores/cartStore' // @ = src
 
 const { VITE_URL, VITE_PATH } = import.meta.env
@@ -60,6 +62,9 @@ export default {
       cart: {},
       product: {}
     }
+  },
+  components: {
+    Loading
   },
   methods: {
     getProduct () {

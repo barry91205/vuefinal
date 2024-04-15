@@ -1,6 +1,7 @@
 <template>
   <div class="bg-primary">
     <div class="container text-info py-6">
+      <Loading v-model:active="isLoading" :can-cancel="false" :is-full-page="fullPage" :loader="loader"></Loading>
       <div class="row">
         <div class="col-md-3 col-sm-5 py-6">
           <div class="border-bottom mb-2">
@@ -82,6 +83,8 @@
 
 <script>
 import axios from 'axios'
+import Loading from 'vue-loading-overlay'
+import 'vue-loading-overlay/dist/css/index.css'
 const { VITE_URL, VITE_PATH } = import.meta.env
 export default {
   data () {
@@ -93,6 +96,9 @@ export default {
       total: 0,
       isLoading: true
     }
+  },
+  components: {
+    Loading
   },
   methods: {
     // 訂單資訊

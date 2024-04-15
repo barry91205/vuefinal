@@ -1,6 +1,7 @@
 <template>
   <div class="bg-primary">
     <div class="container text-info">
+      <Loading v-model:active="isLoading" :can-cancel="false" :is-full-page="fullPage" :loader="loader"></Loading>
       <div class="row py-md-6">
         <div class="col-md-3 pt-6 col-sm-5">
           <div class="border-bottom mb-2">
@@ -18,55 +19,14 @@
       <div class="row py-4">
         <div class="col-md-8 col-sm-12">
           <!-- {{ cart }} -->
-          <div v-if="carts.length === 0" class="text-info d-flex align-items-center justify-content-center mb-2"
-            style="height:200px; background-color: rgba(99, 99, 99, 0.90); z-index: 100;">
-            購物車沒有任何商品，趕快去看喜歡的房型吧!
-            <router-link to="/products">
-              <button type="submit" class="btn btn-info ms-2">去逛逛</button>
-            </router-link>
-          </div>
-          <div class="d-flex justify-content-between mb-4" v-if="carts.length > 0">
+          <div class="d-flex justify-content-between mb-4" v-if="carts.length>0">
             <router-link to="/products">
               <button type="submit" class="btn btn-info">繼續購買</button>
             </router-link>
             <button type="submit" class="btn btn-outline-info" @click="deleteAllCarts">清空購物車</button>
           </div>
-          <!-- <div class="border mb-3 bg-info text-primary" v-for="item in cart.carts" :key="item.id">
-            <div class="row">
-              <div class="col-md-2 col-sm-3">
-                <img :src="item.product.imageUrl" class="img-fluid">
-              </div>
-              <div class="cart col-md-10 col-sm-9">
-                <div class="row">
-                  <div class="col" style="width: 200px;">
-                    <h5>{{ item.product.title }}</h5>
-                  </div>
-                  <div class="col btn-group">
-                    <button type="button" class="btn btn-secondary" @click="item.qty--; changeCartQty(item, item.qty)"
-                      :disabled="item.qty === 1">-</button>
-                    <input min="1" type="number" class="productNumber" v-model.number="item.qty"
-                      @change="changeCartQty(item, item.qty)" :disabled="item.qty === 1" readonly>
-                    <button type="button" class="btn btn-secondary" @click="item.qty++">+</button>
-                  </div>
-                  </div>
-                  <div class="col" style="width: 200px;">
-                    <h5>NT${{ item.product.price }}</h5>
-                  </div>
-                  <div class="col">
-                    <button type="button" class="btn btn-outline-danger" @click="removeCartItem(item.id)">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                        class="bi bi-trash-fill" viewBox="0 0 16 16">
-                        <path
-                          d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0" />
-                      </svg>
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div> -->
           <!-- 購物車 -->
-          <div class="table-container">
+          <div class="table-container" v-if="carts.length>0">
             <table class="table align-middle">
               <thead class="table-dark">
                 <tr>
@@ -108,7 +68,14 @@
               </tbody>
             </table>
           </div>
-          <div class="border bg-secondary p-4">
+          <div v-else class="text-info d-flex align-items-center justify-content-center mb-2"
+            style="height:300px; background-color: rgba(99, 99, 99, 0.90); z-index: 100;">
+            購物車沒有任何商品，趕快去看喜歡的房型吧!
+            <router-link to="/products">
+              <button type="submit" class="btn btn-info ms-2">去逛逛</button>
+            </router-link>
+          </div>
+          <div class="border bg-secondary p-4" v-if="carts.length>0">
             <h2>訂單明細</h2>
             <hr>
             <div class="d-flex justify-content-between mb-4">
@@ -132,7 +99,7 @@
             </div>
           </div>
         </div>
-        <div class="col-md-4 col-sm-12">
+        <div class="col-md-4 col-sm-12" v-if="carts.length>0">
           <div class="row justify-content-center py-4">
             <v-form ref="form" v-slot="{ errors }" @submit="createOrder">
               <div class="mb-3">
@@ -183,6 +150,8 @@
 <script>
 import axios from 'axios'
 import 'bootstrap/dist/js/bootstrap.bundle.min.js'
+import Loading from 'vue-loading-overlay'
+import 'vue-loading-overlay/dist/css/index.css'
 import { mapState, mapActions } from 'pinia'
 
 import cartStore from '@/stores/cartStore'
@@ -205,6 +174,9 @@ export default {
       },
       coupon: ''
     }
+  },
+  components: {
+    Loading
   },
   methods: {
     getCarts () {

@@ -121,13 +121,6 @@ export default {
       const { category = '' } = this.$route.query
       axios.get(`${VITE_URL}/v2/api/${VITE_PATH}/products?category=${category}`)
         .then((res) => {
-          this.$Swal.fire({
-            title: '成功取得商品列表',
-            icon: 'success',
-            position: 'top-end',
-            timer: 1000,
-            showConfirmButton: false
-          })
           this.products = res.data.products
           this.pagination = res.data.pagination
           this.isLoading = false

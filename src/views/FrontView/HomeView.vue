@@ -1,4 +1,5 @@
 <template>
+  <Loading v-model:active="isLoading" :can-cancel="false" :is-full-page="fullPage" :loader="loader"></Loading>
   <!-- banner -->
   <div class="banner mt-5" style="background-image: url('images/bannercat.jpg'); background-size: cover;">
     <div class="col-md-4 text-center">
@@ -12,7 +13,7 @@
   <div class="bg-primary">
     <div class="container text-info py-6 pb-6">
       <div class="row py-md-6 py-sm-0">
-        <div class="col-md-6" data-aos="fade-left">
+        <div class="col-md-6" data-aos="fade-up">
           <div class="col-md-4 my-6 me-2">
             <div class="border-bottom">
               <h2>關於<br>
@@ -30,12 +31,12 @@
         </div>
       </div>
       <div class="row py-md-6 py-sm-0">
-        <div class="col-md-6" data-aos="fade-right">
+        <div class="col-md-6" data-aos="fade-up">
           <p>喵星球，台北市中心獨一無二的貓旅館，是給貓皇的理想選擇。
             「讓貓主人安心出門」不僅是喵星球的使命，更是我們對每位貓貴賓的承諾。在這裡，我們提供的不僅是最高規格的房型與舒適設備，更有溫暖及貼心的照顧服務，保證每位貓貴賓都能享受到頂級的住宿體驗。貓主人在外度假出差時，貓貴賓也正在台北市的喵星球享受一段悠閒而放鬆的度假時光。
           </p>
         </div>
-        <div class="col-md-6" data-aos="fade-left">
+        <div class="col-md-6" data-aos="fade-up">
           <p>
             在眾多台灣寵物旅館中，喵星球是首創，在台北市中心專為貓咪打造的貓旅館。我們深知貓咪情緒的敏感與易緊張的特性，每一項設計都細心考量貓咪的習性，從房型到照護服務，我們致力於打造一個完美細緻、專屬於貓咪的住宿體驗，只為了讓您的愛貓在台北市的喵星球享有一次難忘的旅程。
           </p>
@@ -75,9 +76,8 @@
       </div>
     </div>
   </div>
-  <!-- <div class="bg-primary row p-4"><h2 class="text-info">熱門房型推薦</h2></div> -->
-  <!-- <div class="row recommend">
-    <router-link ></router-link>
+  <!-- <div class="bg-primary row py-6 text-center"><h2 class="text-info">熱門房型推薦</h2></div>
+  <div class="row recommend">
         <div class="col-md-4 col-sm-12 reco1 p-4"><h2 class="text-info">經典房。</h2></div>
         <div class="col-md-4 col-sm-12 reco2 p-4"><h2 class="text-info">森林房。</h2></div>
         <div class="col-md-4 col-sm-12 reco3 p-4"><h2 class="text-info">樹木房。</h2></div>
@@ -103,7 +103,7 @@
         </div>
       </div>
       <div class="row py-md-6 py-sm-0">
-        <div class="col-md-6" data-aos="fade-right">
+        <div class="col-md-6" data-aos="fade-up">
           <p>全木製打造的房間散發木質溫潤的香氣。<br>
 
             採用300公分挑高設計，蜿蜒直達房頂的樓梯與步道，讓貓咪自由自在的穿梭其中。<br>
@@ -182,6 +182,14 @@
 <script>
 import AOS from 'aos'
 import 'aos/dist/aos.css'
+import Loading from 'vue-loading-overlay'
+import 'vue-loading-overlay/dist/css/index.css'
+// import { Swiper, SwiperSlide } from 'swiper/vue'
+import 'swiper/css/effect-coverflow'
+import 'swiper/css/pagination'
+
+// Import Swiper styles
+import 'swiper/css'
 export default {
   mounted () {
     AOS.init({
@@ -195,13 +203,16 @@ export default {
       anchorPlacement: 'top-bottom' // defines which position of the element regarding to window should trigger the animation
 
     })
+  },
+  components: {
+    Loading
   }
 }
 </script>
 
 <style scoped>
 
-/* .recommend {
+.recommend {
   height: 800px;
   position: relative;
 }
@@ -224,11 +235,14 @@ export default {
   background-image: url('public/images/tree.jpg');
   background-size: cover;
   background-position: center;
-} */
+}
 
 @media (max-width: 430px) {
   .banner {
     height: 200px;
+    width: 100%;
+  }
+  .recommend img {
     width: 100%;
   }
  }

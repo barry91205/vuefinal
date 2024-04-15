@@ -1,7 +1,7 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-light bg-primary fixed-top shadow-sm opacity-80">
     <div class="container">
-      <RouterLink class="navbar-brand text-info" to="/home">
+      <RouterLink class="navbar-brand text-info" to="/">
         <!-- <img class="logo" src="../../public/images/logo.jpg" alt=""> -->
         喵星球
       </RouterLink>

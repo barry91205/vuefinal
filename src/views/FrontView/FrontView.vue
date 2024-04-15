@@ -19,7 +19,7 @@
       </div>
     </div>
     <div class="bg-primary text-center p-4 text-info">
-      <img src="../../public/images/logo.jpg" alt="">
+      <img src="../../../public/images/logo.jpg" alt="">
       <p>106 台北市大安區信義路三段100號10號5樓</p>
       <p>02-2785-8877</p>
       <p>&copy; 2024 喵星球_貓咪旅館. All Rights Reserved.</p>
@@ -62,7 +62,7 @@ export default {
 
 <style>
 .Newsletter {
-  background-image: url('./public/images/roomforest.jpg');
+  background-image: url('images/roomforest.jpg');
   background-size: cover;
   background-position: center;
   /* height: 300px; */
