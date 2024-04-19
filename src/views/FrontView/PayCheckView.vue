@@ -103,10 +103,12 @@ export default {
   methods: {
     // 訂單資訊
     getOrder () {
+      this.isLoading = true
       const url = `${VITE_URL}/v2/api/${VITE_PATH}/order/${this.orderId}`
       axios.get(url).then((res) => {
         this.order = res.data.order
         this.productsData = res.data.order.products
+        this.isLoading = false
       }).catch(() => {
       })
     },
