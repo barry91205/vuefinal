@@ -20,10 +20,10 @@
         <div class="col-md-6 col-sm-10 border bg-secondary text-center p-6">
           <h2 class="mb-4"><i class="bi bi-check-circle"></i><span> 成功付款</span></h2>
           <h5>感謝各位對喵星球的支持!</h5>
-          <p>{{ order.id }}</p>
+          <!-- <p>{{ order.id }}</p> -->
         </div>
         <div class="col-md-6 col-sm-10 d-flex justify-content-between mt-2">
-          <router-link to="/home">
+          <router-link to="/">
             <button type="submit" class="btn btn-info">回首頁</button>
           </router-link>
           <router-link to="/products">
@@ -36,6 +36,8 @@
 </template>
 
 <script>
+import Loading from 'vue-loading-overlay'
+import 'vue-loading-overlay/dist/css/index.css'
 import axios from 'axios'
 const { VITE_URL, VITE_PATH } = import.meta.env
 export default {
@@ -46,18 +48,22 @@ export default {
       user: {},
       productsData: [],
       total: 0,
-      isLoading: false
+      isLoading: true,
+      fullPage: true,
+      loader: 'bars'
     }
   },
   components: {
-    // Loading
+    Loading
   },
   methods: {
     // 訂單資訊
     getOrder () {
+      this.isLoading = true
       const url = `${VITE_URL}/v2/api/${VITE_PATH}/order/${this.orderId}`
       axios.get(url).then((res) => {
         this.order = res.data.order
+        this.isLoading = false
       }).catch(() => {
       })
     }
@@ -67,7 +73,7 @@ export default {
     this.getOrder()
   },
   mounted () {
-    this.getOrder()
+    // this.getOrder()
   }
 }
 </script>

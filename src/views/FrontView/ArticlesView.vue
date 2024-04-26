@@ -55,7 +55,9 @@ export default {
     return {
       articles: [],
       pagination: {},
-      isLoading: true
+      isLoading: true,
+      fullPage: true,
+      loader: 'bars'
     }
   },
   components: {

@@ -7,6 +7,12 @@ const { VITE_URL, VITE_PATH } = import.meta.env
 export default defineStore('productStore', {
   state: () => ({
     products: [],
+    product: {
+      imagesUrl: [],
+      origin_price: 0,
+      price: 0
+    },
+    currentCategory: {},
     isLoading: false
   }),
   components: {
@@ -15,27 +21,21 @@ export default defineStore('productStore', {
   actions: {
     getProducts () {
       this.isLoading = true
-      const { category = '' } = this.$route.query
-      axios.get(`${VITE_URL}/v2/api/${VITE_PATH}/products?category=${category}`)
+      // const { category = '' } = this.$route.query
+      axios.get(`${VITE_URL}/v2/api/${VITE_PATH}/products/all`)
         .then((res) => {
-          this.$Swal.fire({
-            title: '成功取得商品列表',
-            icon: 'success',
-            position: 'top-end',
-            timer: 1000,
-            showConfirmButton: false
-          })
           this.products = res.data.products
           this.pagination = res.data.pagination
           this.isLoading = false
         })
-        .catch(err => {
-          this.$Swal.fire({
-            icon: 'error',
-            title: err.response.data.message
-          })
-        })
     }
+  },
+  getProduct (productId) {
+    this.isLoading = true
+    axios.get(`${VITE_URL}/V2/api/${VITE_PATH}/product/${productId}`)
+      .then(res => {
+        this.product = res.data.product
+      })
   },
   getters: {
     sortProducts: ({ products }) => {

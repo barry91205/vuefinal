@@ -11,18 +11,42 @@
           <!-- 固定選單且不會離開畫面 -->
           <div class="position-sticky" style="top: 5rem;">
             <div class="card text-center bg-secondary mb-2">
-            <div class="card-header py-3 text-info">
-              房型類別
+              <div class="card-header py-3 text-info">
+                房型類別
+              </div>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item list">
+                  <RouterLink class="py-2 nav-link" :to="`/products`">
+                    <p class="my-auto">全部房型</p>
+                  </RouterLink>
+                </li>
+                <!-- <li class="list-group-item list" :class="{ 'bg-secondary': $route.query.category === '一貓房','text-info': $route.query.category === '一貓房' }">
+                  <RouterLink class="py-2 nav-link" :to="{ name: 'Products', query: { category: '一貓房' }}"
+                  @click="productCategoryFilter('一貓房')">
+                    <p class="my-auto">一貓房</p>
+                  </RouterLink>
+                </li> -->
+                <li class="list-group-item list" v-for="item in categories" :key="item">
+                  <RouterLink class="py-2 nav-link link-hover"
+                   :to="`/products?category=${item}`"
+                   >{{ item }}
+                  </RouterLink>
+                </li>
+              </ul>
             </div>
-            <ul class="list-group list-group-flush">
-              <li class="list-group-item list">
-                <RouterLink class="py-2 nav-link" :to="`/products`">全部房型</RouterLink>
-              </li>
-              <li class="list-group-item list" v-for="item in categories" :key="item">
-                <RouterLink class="py-2 nav-link" :to="`/products?category=${item}`">{{ item }}</RouterLink>
-              </li>
-            </ul>
-          </div>
+            <div class="input-group mt-3">
+                  <span class="input-group-text bg-light border">
+                    <i class="bi bi-search my-auto"></i>
+                  </span>
+                <input
+                  type="search"
+                  class="form-control"
+                  placeholder="輸入房型名稱"
+                  aria-label="Search"
+                  v-model="searchInput"
+                   @keyup.enter="productSearch"
+                />
+              </div>
           </div>
         </div>
         <div class="col-md-9 col-sm-12">
@@ -73,7 +97,7 @@
               </div>
             </div>
           </div>
-          <Pagination :pagination="pagination" @emit-pages="getData"></Pagination>
+          <Pagination :pagination="pagination" @emit-pages="getProducts"></Pagination>
         </div>
       </div>
     </div>
@@ -100,7 +124,10 @@ export default {
       loader: 'bars',
       Swal,
       pagination: {},
-      currentCategory: {}
+      currentCategory: {},
+      searchInput: '',
+      productCategory: '',
+      search: ''
     }
   },
   components: {
@@ -150,7 +177,42 @@ export default {
           this.isLoading = false
         })
     },
+    productSearch () {
+      if (this.searchInput !== '') {
+        this.products = this.productsSearch
+      } else {
+        this.getProducts()
+      }
+    },
+    productCategoryFilter (category) {
+      this.isLoading = true
+      this.filterArea = []
+      this.category = category
+      if (this.category) {
+        this.products = this.productsCategoryFilterResults
+        this.categoryFilterProducts = this.productsCategoryFilterResults
+        setTimeout(() => {
+          this.isLoading = false
+        }, 1000)
+      } else {
+        this.getProductsList()
+      }
+    },
     ...mapActions(cartStore, ['addToCart', 'getCart'])
+  },
+  computed: {
+    productsSearch () {
+      const newProducts = this.products.filter(product => {
+        return product.title.toLowerCase().includes(this.searchInput.toLowerCase())
+      })
+      return newProducts
+    },
+    productsCategoryFilterResults () {
+      const newProducts = this.products.filter(product => {
+        return product.category.toLowerCase().includes(this.category.toLowerCase())
+      })
+      return newProducts
+    }
   },
   mounted () {
     this.getProducts()
@@ -182,43 +244,60 @@ export default {
 .image-container:hover img {
   transform: scale(1.3);
 }
+
+.link-hover {
+  &::after {
+    background-color: #535F43;
+    /* 下底線顏色 */
+  }
+}
+
 @media (max-width: 360px) {
   .title {
     width: 100px;
   }
+
   .price {
     width: 150px;
     padding: 12px;
   }
 }
+
 @media (max-width: 430px) {
   .card {
     width: 100%;
     /* height: 200px; */
   }
-  .content , .card-text {
+
+  .content,
+  .card-text {
     display: none;
   }
+
   img {
     width: 100%;
     height: 129px;
     background-position: center;
-  background-size: cover;
-  overflow: hidden;
+    background-size: cover;
+    overflow: hidden;
   }
+
   h3 {
     font-size: 1.3rem;
   }
- }
+}
 
-@media (max-width: 768px) { .content , .card-text {
+@media (max-width: 768px) {
+
+  .content,
+  .card-text {
     display: none;
-  } }
+  }
+}
 
-@media (max-width: 992px) {  }
+@media (max-width: 992px) {}
 
-@media (max-width: 1200px) {  }
+@media (max-width: 1200px) {}
 
-@media (max-width: 1400px) {  }
-
+@media (max-width: 1400px) {}
 </style>

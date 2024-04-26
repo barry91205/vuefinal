@@ -21,7 +21,7 @@
                   <button type="button" class="btn btn-primary w-100 mb-2">文章管理</button>
                 </router-link>
                 <hr>
-                <router-link to="/home">
+                <router-link to="/">
                     <button type="button" class="btn btn-primary w-100 mb-2">回前台</button>
                 </router-link>
                 <button type="button" class="btn btn-primary w-100 mb-2">登出</button>

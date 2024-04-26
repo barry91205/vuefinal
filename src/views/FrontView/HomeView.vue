@@ -1,5 +1,5 @@
 <template>
-  <Loading v-model:active="isLoading" :can-cancel="false" :is-full-page="fullPage" :loader="loader"></Loading>
+  <Loading :active="isLoading" :can-cancel="false" :is-full-page="fullPage" :loader="loader"></Loading>
   <!-- banner -->
   <div class="banner mt-5" style="background-image: url('images/bannercat.jpg'); background-size: cover;">
     <div class="col-md-4 text-center">
@@ -76,12 +76,33 @@
       </div>
     </div>
   </div>
-  <!-- <div class="bg-primary row py-6 text-center"><h2 class="text-info">熱門房型推薦</h2></div>
-  <div class="row recommend">
-        <div class="col-md-4 col-sm-12 reco1 p-4"><h2 class="text-info">經典房。</h2></div>
-        <div class="col-md-4 col-sm-12 reco2 p-4"><h2 class="text-info">森林房。</h2></div>
-        <div class="col-md-4 col-sm-12 reco3 p-4"><h2 class="text-info">樹木房。</h2></div>
-      </div> -->
+  <div class="bg-primary pt-2 pb-6">
+    <div class="container">
+      <h2 class="text-info text-center my-6">熱門房型推薦</h2>
+      <div class="row mt-4">
+        <div class="col-md-4 col-sm-12 mt-4" v-for="product in products.slice(0, 3)" :key="product.id">
+          <router-link :to="`/product/${product.id}`" class="text-decoration-none">
+            <div class="card mt-4 shadow-sm recommend">
+            <img :src="product.imageUrl" style="height: 280px;width: 100%;" class="card-img-top object-fit-cover" alt="product-img">
+            <div class="card-body">
+              <h5 class="card-title h5 text-primary">{{ product.title }}</h5>
+              <p
+                class="card-text overflow-hidden lh-base text-start"
+              >
+                {{ product.description }}
+              </p>
+              <p><i class="bi bi-play-fill"></i> {{ product.category }}</p>
+              <h5>
+                <del>NT$ {{ formatPrice(product.origin_price) }}</del><br>
+                <p style="color: #535F43">NT$ {{ formatPrice(product.price) }}</p>
+              </h5>
+            </div>
+          </div>
+          </router-link>
+        </div>
+      </div>
+    </div>
+  </div>
   <div style="background-image: url('images/compassion.jpg');">
     <div class="container text-info py-6">
       <div class="row py-md-6 py-sm-0">
@@ -184,13 +205,26 @@ import AOS from 'aos'
 import 'aos/dist/aos.css'
 import Loading from 'vue-loading-overlay'
 import 'vue-loading-overlay/dist/css/index.css'
-// import { Swiper, SwiperSlide } from 'swiper/vue'
 import 'swiper/css/effect-coverflow'
 import 'swiper/css/pagination'
-
+import { mapActions, mapState } from 'pinia'
+import productStore from '@/stores/productStore'
 // Import Swiper styles
 import 'swiper/css'
 export default {
+  data () {
+    return {
+      isLoading: false,
+      fullPage: true,
+      loader: 'bars'
+    }
+  },
+  components: {
+    Loading
+  },
+  computed: {
+    ...mapState(productStore, ['products'])
+  },
   mounted () {
     AOS.init({
       // Settings that can be overridden on per-element basis, by `data-aos-*` attributes:
@@ -204,37 +238,45 @@ export default {
 
     })
   },
-  components: {
-    Loading
+  methods: {
+    ...mapActions(productStore, ['getProducts']),
+    formatPrice (price) {
+      return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+    }
+  },
+  created () {
+    this.getProducts()
   }
 }
 </script>
 
 <style scoped>
-
-.recommend {
-  height: 800px;
+.border-hover {
   position: relative;
+  &::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -5px; /* 下底線與文字距離 */
+      width: 0;
+      height: 2px; /* 下底線的粗細 */
+      background-color: #fff; /* 下底線顏色 */
+      transition: width 0.3s ease; /* 過度效果，控制寬度的動畫*/
+  }
+  &:hover::after {
+      width: 100%;
+  }
 }
 
-.recommend :hover {
-  filter: brightness(70%);
+.recommend  {
+  transition: transform 0.3s ease;
+  &:hover {
+      /* filter: brightness(70%); */
+      transform: translateY(-10px);
+  }
 }
-.reco1 {
-  background-image: url('public/images/floor.jpg');
-  background-size: cover;
-  background-position: center;
-  transition: filter 0.3s ease-in-out;
-}
-.reco2 {
-  background-image: url('public/images/roomforest.jpg');
-  background-size: cover;
-  background-position: center;
-}
-.reco3 {
-  background-image: url('public/images/tree.jpg');
-  background-size: cover;
-  background-position: center;
+.card {
+  height: 520px;
 }
 
 @media (max-width: 430px) {
@@ -242,16 +284,17 @@ export default {
     height: 200px;
     width: 100%;
   }
+
   .recommend img {
     width: 100%;
   }
- }
+}
 
-@media (max-width: 768px) {  }
+@media (max-width: 768px) {}
 
-@media (max-width: 992px) {  }
+@media (max-width: 992px) {}
 
-@media (max-width: 1200px) {  }
+@media (max-width: 1200px) {}
 
-@media (max-width: 1400px) {  }
+@media (max-width: 1400px) {}
 </style>

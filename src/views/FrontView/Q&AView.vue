@@ -209,6 +209,13 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js'
 import AOS from 'aos'
 import 'aos/dist/aos.css'
 export default {
+  data () {
+    return {
+      isLoading: false,
+      fullPage: true,
+      loader: 'bars'
+    }
+  },
   mounted () {
     AOS.init({
       // Settings that can be overridden on per-element basis, by `data-aos-*` attributes:

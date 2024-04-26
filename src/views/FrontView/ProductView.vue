@@ -60,7 +60,9 @@ export default {
   data () {
     return {
       cart: {},
-      product: {}
+      product: {},
+      fullPage: true,
+      loader: 'bars'
     }
   },
   components: {

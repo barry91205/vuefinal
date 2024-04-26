@@ -94,7 +94,9 @@ export default {
       user: {},
       productsData: [],
       total: 0,
-      isLoading: true
+      isLoading: true,
+      fullPage: true,
+      loader: 'bars'
     }
   },
   components: {
@@ -119,7 +121,6 @@ export default {
         this.$Swal.fire({
           title: '成功付款',
           icon: 'success',
-          // position: 'top-end',
           timer: 2000,
           showConfirmButton: false
         })

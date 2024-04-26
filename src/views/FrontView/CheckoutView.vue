@@ -172,7 +172,10 @@ export default {
         },
         message: ''
       },
-      coupon: ''
+      coupon: '',
+      isLoading: true,
+      fullPage: true,
+      loader: 'bars'
     }
   },
   components: {
@@ -180,11 +183,12 @@ export default {
   },
   methods: {
     getCarts () {
+      this.isLoading = true
       axios.get(`${VITE_URL}/v2/api/${VITE_PATH}/cart`)
         .then((res) => {
-          console.log(res)
           this.cart = res.data.data
           this.totalPrice = res.data.data.total
+          this.isLoading = false
         })
     },
     changeCartQty (item, qty = 1) {

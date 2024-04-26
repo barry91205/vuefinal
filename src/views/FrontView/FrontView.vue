@@ -9,8 +9,9 @@
   <footer class="footer Newsletter">
     <div class="container p-6">
       <div class="row">
-        <div class="col-md-6 col-sm-12 text-start">
-          <h2 class="text-info mb-4">歡迎訂閱電子報</h2>
+        <div class="col-md-6 col-sm-12 text-start text-info">
+          <h2 class="mb-4">歡迎訂閱電子報</h2>
+          <h5>立即訂閱，取得最新折扣優惠碼</h5>
           <form class="input-group total-coupon-input">
             <input type="text" placeholder="請輸入信箱" class="form-control">
             <button type="submit" class="btn btn-primary">訂閱</button>
@@ -62,7 +63,7 @@ export default {
 
 <style>
 .Newsletter {
-  background-image: url('images/roomforest.jpg');
+  background-image: url('public/images/roomforest.jpg');
   background-size: cover;
   background-position: center;
   /* height: 300px; */
