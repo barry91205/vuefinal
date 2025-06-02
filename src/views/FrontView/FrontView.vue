@@ -6,7 +6,7 @@
   </div>
   <RouterView></RouterView>
   <!-- Footer -->
-  <footer class="footer Newsletter">
+  <footer class="footer Newsletter" style="background-image: url('images/roomforest.jpg')">
     <div class="container p-6">
       <div class="row">
         <div class="col-md-6 col-sm-12 text-start text-info">
@@ -63,7 +63,6 @@ export default {
 
 <style>
 .Newsletter {
-  background-image: url('public/images/roomforest.jpg');
   background-size: cover;
   background-position: center;
   /* height: 300px; */

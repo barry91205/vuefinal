@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row">
             <div class="col-3 bg-primary p-4 sidebarMenu">
-                <router-link to="/home">
+                <router-link to="/">
                     <img src="../../../public/images/logo.jpg" alt="" width="200px">
                 </router-link>
                 <router-link to="/admin/home">
