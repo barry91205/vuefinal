@@ -13,6 +13,8 @@ export default defineStore('cartStore', {
     final_total: 0, // 購物車總計
     order_total: 0,
     total: 0,
+    cartList: {},
+    cartListTotalQty: '',
     status: {
       addCartLoading: ''
     },
@@ -28,7 +30,8 @@ export default defineStore('cartStore', {
         product_id: id,
         qty
       }
-      axios.post(`${VITE_URL}/v2/api/${VITE_PATH}/cart`, { data: cart })
+      axios
+        .post(`${VITE_URL}/v2/api/${VITE_PATH}/cart`, { data: cart })
         .then((res) => {
           this.isLoading = true
           Swal.fire({
@@ -48,14 +51,39 @@ export default defineStore('cartStore', {
           })
         })
     },
-    getCart () {
-      axios.get(`${VITE_URL}/v2/api/${VITE_PATH}/cart`)
-        .then((res) => {
-          this.carts = res.data.data.carts
-          this.final_total = res.data.data.final_total
-          this.total = res.data.data.total
-          this.order_total = res.data.data.total
-          console.log('pinia cart', this.carts)
+    getCarts () {
+      axios.get(`${VITE_URL}/v2/api/${VITE_PATH}/cart`).then((res) => {
+        this.carts = res.data.data.carts
+        this.final_total = res.data.data.final_total
+        this.total = res.data.data.total
+        this.cartList = res.data.data.carts
+        this.order_total = res.data.data.total
+        this.cartListTotalQty = res.data.data.carts.reduce(
+          (total, carts) => total + carts.qty,
+          0
+        )
+        console.log('pinia cart', this.carts)
+      })
+    },
+    updateCart (data) {
+      const url = `${VITE_PATH}/v2/api/${VITE_PATH}/cart/${data.id}`
+      const cart = {
+        product_id: data.product_id,
+        qty: data.qty
+      }
+      axios
+        .put(url, { data: cart })
+        .then((response) => {
+          this.getCarts()
+        })
+        .catch((err) => {
+          Swal.fire({
+            icon: 'error',
+            title: err.response.data.message
+          })
+        })
+        .finally(() => {
+          this.isLoading = false
         })
     }
   }
